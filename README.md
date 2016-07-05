@@ -7,10 +7,9 @@ Here are my dockerfiles for AEM set-up which should be the basis of creating a d
 
 
 ## Required Applications
-* [Docker](https://docs.docker.com/) 
-** [Docker for OSx](https://docs.docker.com/engine/installation/mac/)
-** [Docker for Windows (uses HyperV - VMware and VirtualBox will not work anymore)](https://docs.docker.com/engine/installation/windows/)
-** [Docker Toolbox (For Windows using VirtualBox - if VMware and VirtualBox are required](https://www.docker.com/products/docker-toolbox)
+* [Docker for OSx (native)](https://docs.docker.com/engine/installation/mac/)
+* [Docker for Windows (uses HyperV - VMware and VirtualBox will not work anymore)](https://docs.docker.com/engine/installation/windows/)
+* [Docker Toolbox (For Windows or OSx using VirtualBox - if VMware and VirtualBox are still a required feature to use on the machine)](https://www.docker.com/products/docker-toolbox)
 
 ## Build Prerequisites
 The following files are required, but they're not part of this repository. Add them manually before you're able to build the Docker images.
