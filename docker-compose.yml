@@ -1,0 +1,79 @@
+version: '2'
+services:
+    aem-base:
+        build:
+          context: ./AEM
+          dockerfile: Dockerfile-AEM-base
+        image: aem-base
+        container_name: base
+    publish:
+        build:
+          context: ./AEM
+          dockerfile: Dockerfile-AEM-publish
+        image: aem-publish
+        container_name: publish
+        ports:
+            - "4503:4503"
+            - "4603:4603"
+            - "40404:40404"
+        links:
+            - aem-base
+        #logging:
+        #    driver: syslog
+        #    options:
+        #        syslog-address: "tcp://192.168.99.1:514"
+        volumes:
+            # Specify an absolute path mapping
+            - ${PWD}/dockervolume/aem-publish/install:/opt/aem/crx-quickstart/install
+            - ${PWD}/dockervolume/aem-publish/launchpad:/opt/aem/crx-quickstart/launchpad
+            - ${PWD}/dockervolume/aem-publish/monitoring:/opt/aem/crx-quickstart/monitoring
+            - ${PWD}/dockervolume/aem-publish/conf:/opt/aem/crx-quickstart/conf
+            - ${PWD}/dockervolume/aem-publish/logs:/opt/aem/crx-quickstart/logs
+    author:
+        build:
+          context: ./AEM
+          dockerfile: Dockerfile-AEM-author
+        image: aem-author
+        container_name: author
+        ports:
+            - "4502:4502"
+            - "4602:4602"
+            - "30303:30303"
+        links:
+            - publish
+        #logging:
+        #    driver: syslog
+        #    options:
+        #        syslog-address: "tcp://192.168.99.1:514"
+        volumes:
+            # Specify an absolute path mapping
+            - ${PWD}/dockervolume/aem-author/install:/opt/aem/crx-quickstart/install
+            - ${PWD}/dockervolume/aem-author/launchpad:/opt/aem/crx-quickstart/launchpad
+            - ${PWD}/dockervolume/aem-author/monitoring:/opt/aem/crx-quickstart/monitoring
+            - ${PWD}/dockervolume/aem-author/conf:/opt/aem/crx-quickstart/conf
+            - ${PWD}/dockervolume/aem-author/logs:/opt/aem/crx-quickstart/logs
+
+    dispatcher:
+        build:
+          context: ./Dispatcher
+          dockerfile: Dockerfile
+        image: apache-dispatcher
+        container_name: dispatcher
+        ports:
+            - "80:80"
+        links:
+            - publish
+        #logging:
+        #    driver: syslog
+        #    options:
+        #        syslog-address: "tcp://192.168.99.1:514"
+        volumes:
+            # Specify an absolute path mapping
+            #- ${PWD}/dockervolume/aem-dispatcher/apache2/sites-enabled:/etc/apache2/sites-enabled
+            #- ${PWD}/dockervolume/aem-dispatcher/apache2/conf-enabled:/etc/apache2/conf-enabled
+            #- ${PWD}/dockervolume/aem-dispatcher/apache2/conf.d:/etc/apache2/conf.d
+            - ${PWD}/dockervolume/aem-dispatcher/var/www/html:/var/www/html
+            - ${PWD}/dockervolume/aem-dispatcher/var/log/apache2:/var/log/apache2
+        environment:
+            - DISPATCHER_PUBLISH_PORT=4503
+            - DISPATCHER_PUBLISH_HOSTNAME=publish

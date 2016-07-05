@@ -1,0 +1,36 @@
+# Dockerized AEM 6.0 author image
+
+FROM aem-base:latest
+
+MAINTAINER Robert Wunsch <wunsch@adobe.com>
+
+ENV CQ_RUNMODE author
+ENV CQ_PORT 4502
+ENV DEBUG_PORT 30303
+ENV JMX_PORT 4602
+ENV PUBLISH_HOST publish
+ENV DOCKER_IP 192.168.99.100
+
+RUN echo sling.run.modes=${CQ_RUNMODE} >> crx-quickstart/conf/sling.properties && \
+    crx-quickstart/bin/start && \
+    until $(curl -u admin:admin --output /dev/null --silent --head --fail http://localhost:$CQ_PORT); do printf '.'; sleep 5; done && \
+    curl http://localhost:4502/etc/replication/agents.author/publish/jcr:content -F transportUri=http://${PUBLISH_HOST}:4503/bin/receive?sling:authRequestLogin=1 -uadmin:admin && \
+    crx-quickstart/bin/stop
+
+EXPOSE $CQ_PORT
+EXPOSE $DEBUG_PORT
+EXPOSE $JMX_PORT
+
+CMD java \
+	-Dcom.sun.management.jmxremote \
+	-Dcom.sun.management.jmxremote.port=$JMX_PORT \
+	-Dcom.sun.management.jmxremote.rmi.port=$JMX_PORT \
+	-Dcom.sun.management.jmxremote.ssl=false \
+	-Dcom.sun.management.jmxremote.authenticate=false \
+	-Dcom.sun.management.jmxremote.local.only=false \
+	-Djava.rmi.server.hostname=$DOCKER_IP \
+    -Djava.awt.headless=true \
+	-XX:MaxPermSize=256M -Xms512m -Xmx2048m \
+    -Xdebug \
+	-agentlib:jdwp=transport=dt_socket,address=$DEBUG_PORT,server=y,suspend=n \
+	-jar $AEM_QUICKSTART_FILE -p $CQ_PORT -r $CQ_RUNMODE -nobrowser -verbose -nofork
