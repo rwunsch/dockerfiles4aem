@@ -38,3 +38,23 @@ or
 ```docker-machine ip```
 
 Through this IP you can access the AEM author and publish as well as the Apache dispatcher through the known standard ports.
+
+## Known issues
+
+### Docker-Volumes on VirtualBox (Win) - Access rights must be set to enable container to access windows folders  
+On Windows VirtualBox is used as Virtualisation Enginge to tun Docker. 
+VirtualBox provides a means to map folders from a VM to the host-system. 
+This construct is being used by Docker to map Docker-Volumes.  
+Docker automatically maps the VM to "C:\Users" in the VM on "/c/Users".  
+Using Windows this leads to an issue as the default mapping folder in the Docker-VM (boot2docker) has "root" as owner.
+The docker container owner needs to gain access to this folder. 
+
+#### Resolution 
+Log into the docker-machine VM:
+
+```docker-machine ssh```
+
+Change the owner of the directory "/c" recursively to the container owner (for aem this is )
+
+```chown -Rf 1000:0 /c```
+```chown -Rf 1000:0 /c/Users```
