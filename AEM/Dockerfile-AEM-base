@@ -1,11 +1,11 @@
-# Dockerized AEM 6.0 base image
+# Dockerized AEM 6.1 base image
 
 FROM ubuntu:14.04
 
 MAINTAINER Robert Wunsch <wunsch@adobe.com>
 
-# ENV AEM_VERSION 6.2.0
-ENV AEM_QUICKSTART_FILE aem-quickstart-6.2.0.jar
+# ENV AEM_VERSION 6.1.0
+ENV AEM_QUICKSTART_FILE aem-quickstart-6.1.0.jar
 ENV AEM_USER aem
 ENV AEM_WORKING_DIR /opt/aem
 ENV DEBIAN_FRONTEND noninteractive

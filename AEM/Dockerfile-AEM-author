@@ -1,4 +1,4 @@
-# Dockerized AEM 6.0 author image
+# Dockerized AEM author image
 
 FROM aem-base:latest
 
