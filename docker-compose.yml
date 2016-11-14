@@ -67,7 +67,7 @@ services:
         #    driver: syslog
         #    options:
         #        syslog-address: "tcp://192.168.99.1:514"
-        #volumes:
+        volumes:
             # Specify an absolute path mapping
             - ${PWD}/dockervolume/aem-dispatcher/apache2/sites-enabled:/etc/apache2/sites-enabled
             - ${PWD}/dockervolume/aem-dispatcher/apache2/conf-enabled:/etc/apache2/conf-enabled
