@@ -33,7 +33,7 @@ RUN apt-get clean && \
 # Add quick-start file and license properties
 #ADD ./$AEM_QUICKSTART_FILE $AEM_WORKING_DIR/$AEM_QUICKSTART_FILE
 
-ADD https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/day/cq/cq-quickstart/AEM_VERSION/cq-quickstart-AEM_VERSION.jar $AEM_WORKING_DIR/$AEM_QUICKSTART_FILE
+ADD https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/day/cq/cq-quickstart/$AEM_VERSION/cq-quickstart-$AEM_VERSION.jar $AEM_WORKING_DIR/$AEM_QUICKSTART_FILE
 ADD ./license.properties $AEM_WORKING_DIR/license.properties
 
 # Add install folder 
