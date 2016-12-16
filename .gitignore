@@ -12,6 +12,12 @@ dispatcher-apache*
 /dockervolume/aem-publish/
 /dockervolume/aem-dispatcher/var/
 
+
+## Ignore everything in install
+/AEM/install/*
+## exception to the rule
+!/AEM/install/.gitkeep 
+
 ## Windows image file caches
 Thumbs.db
 ehthumbs.db
