@@ -1,6 +1,6 @@
 # Dockerized AEM author image
 
-FROM aem-base:latest
+FROM docker-tam-dev.dr.corp.adobe.com/aem-base:AEM6.1.0-SP0
 
 MAINTAINER Robert Wunsch <wunsch@adobe.com>
 
@@ -15,6 +15,7 @@ RUN echo sling.run.modes=${CQ_RUNMODE} >> crx-quickstart/conf/sling.properties &
     crx-quickstart/bin/start && \
     until $(curl -u admin:admin --output /dev/null --silent --head --fail http://localhost:$CQ_PORT); do printf '.'; sleep 5; done && \
     curl http://localhost:4502/etc/replication/agents.author/publish/jcr:content -F transportUri=http://${PUBLISH_HOST}:4503/bin/receive?sling:authRequestLogin=1 -uadmin:admin && \
+	## DO INITIAL SET-UP CURL STUFF HERE
     crx-quickstart/bin/stop
 
 EXPOSE $CQ_PORT

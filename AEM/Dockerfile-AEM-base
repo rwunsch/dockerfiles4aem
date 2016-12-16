@@ -4,8 +4,9 @@ FROM ubuntu:14.04
 
 MAINTAINER Robert Wunsch <wunsch@adobe.com>
 
-# ENV AEM_VERSION 6.1.0
+ENV AEM_VERSION 6.1.0
 ENV AEM_QUICKSTART_FILE aem-quickstart-6.1.0.jar
+
 ENV AEM_USER aem
 ENV AEM_WORKING_DIR /opt/aem
 ENV DEBIAN_FRONTEND noninteractive
@@ -30,8 +31,13 @@ RUN apt-get clean && \
     rm -rf /var/cache/oracle-jdk8-installer
 
 # Add quick-start file and license properties
-ADD ./$AEM_QUICKSTART_FILE $AEM_WORKING_DIR/$AEM_QUICKSTART_FILE
+#ADD ./$AEM_QUICKSTART_FILE $AEM_WORKING_DIR/$AEM_QUICKSTART_FILE
+
+ADD https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/day/cq/cq-quickstart/AEM_VERSION/cq-quickstart-AEM_VERSION.jar $AEM_WORKING_DIR/$AEM_QUICKSTART_FILE
 ADD ./license.properties $AEM_WORKING_DIR/license.properties
+
+# Add install folder 
+ADD install $AEM_WORKING_DIR/install/
 
 # Create user and unpack AEM quick-start
 RUN groupadd -r $AEM_USER && useradd -r -g $AEM_USER $AEM_USER -d $AEM_WORKING_DIR && \

@@ -1,6 +1,6 @@
 # Dockerized AEM publisher image
 
-FROM aem-base:latest
+FROM docker-tam-dev.dr.corp.adobe.com/aem-base:AEM6.1.0-SP0
 
 MAINTAINER Robert Wunsch <wunsch@adobe.com>
 
