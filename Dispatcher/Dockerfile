@@ -40,4 +40,6 @@ ENV APACHE_PID_FILE /var/run/apache2.pid
 ENV APACHE_RUN_DIR /var/run/apache2
 ENV APACHE_LOCK_DIR /var/lock/apache2
 
+ENV DISPATCHER_PUBLISH_PORT 80
+
 CMD /usr/sbin/apache2ctl -D FOREGROUND
