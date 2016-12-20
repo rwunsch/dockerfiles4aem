@@ -67,9 +67,9 @@ services:
         #        syslog-address: "tcp://192.168.99.1:514"
         volumes:
             # Specify an absolute path mapping
-            #- ${PWD}/dockervolume/aem-dispatcher/apache2/sites-enabled:/etc/apache2/sites-enabled
-            #- ${PWD}/dockervolume/aem-dispatcher/apache2/conf-enabled:/etc/apache2/conf-enabled
-            #- ${PWD}/dockervolume/aem-dispatcher/apache2/conf.d:/etc/apache2/conf.d
+            - ${PWD}/dockervolume/aem-dispatcher/apache2/sites-enabled:/etc/apache2/sites-enabled
+            - ${PWD}/dockervolume/aem-dispatcher/apache2/conf-enabled:/etc/apache2/conf-enabled
+            - ${PWD}/dockervolume/aem-dispatcher/apache2/conf.d:/etc/apache2/conf.d
             - ${PWD}/dockervolume/aem-dispatcher/var/www/html:/var/www/html
             - ${PWD}/dockervolume/aem-dispatcher/var/log/apache2:/var/log/apache2
         environment:
