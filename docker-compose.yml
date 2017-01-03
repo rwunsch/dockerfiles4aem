@@ -1,4 +1,10 @@
 version: '2'
+
+#networks:
+#  default:
+#    external:
+#      name: bridge
+
 services:
     aem-base:
         build:
@@ -6,12 +12,14 @@ services:
           dockerfile: Dockerfile-AEM-base
         image: docker-tam-dev.dr.corp.adobe.com/aem-base:AEM6.1.0-SP0
         container_name: base
+        network_mode: bridge
     publish:
         build:
           context: ./AEM
           dockerfile: Dockerfile-AEM-publish
         image: docker-tam-dev.dr.corp.adobe.com/aem-publish:AEM6.1.0-SP0
         container_name: publish
+        network_mode: bridge
         ports:
             - "4503:4503"
             - "4603:4603"
@@ -34,6 +42,7 @@ services:
           dockerfile: Dockerfile-AEM-author
         image: docker-tam-dev.dr.corp.adobe.com/aem-author:AEM6.1.0-SP0
         container_name: author
+        network_mode: bridge
         ports:
             - "4502:4502"
             - "4602:4602"
@@ -57,6 +66,7 @@ services:
           dockerfile: Dockerfile
         image: docker-tam-dev.dr.corp.adobe.com/apache-dispatcher:2.4-4.1.12
         container_name: dispatcher
+        network_mode: bridge
         ports:
             - "80:80"
         links:
