@@ -7,9 +7,7 @@ MAINTAINER Robert Wunsch <wunsch@adobe.com>
 ENV CQ_RUNMODE author
 ENV CQ_PORT 4502
 ENV DEBUG_PORT 30303
-ENV JMX_PORT 4602
 ENV PUBLISH_HOST publish
-ENV DOCKER_IP 192.168.99.100
 
 RUN echo sling.run.modes=${CQ_RUNMODE} >> crx-quickstart/conf/sling.properties && \
     crx-quickstart/bin/start && \
@@ -21,6 +19,9 @@ RUN echo sling.run.modes=${CQ_RUNMODE} >> crx-quickstart/conf/sling.properties &
 EXPOSE $CQ_PORT
 EXPOSE $DEBUG_PORT
 EXPOSE $JMX_PORT
+
+ENV JMX_PORT 4602
+ENV DOCKER_IP 192.168.99.100
 
 CMD java \
 	-Dcom.sun.management.jmxremote \
