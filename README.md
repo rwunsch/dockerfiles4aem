@@ -31,15 +31,29 @@ or for e.g. only author
 ```
 docker-compose up  author
 ```
-## Access AEM Environment
+
+## Downloading images from private repository 
+The compose-file is created to use a private docker repository for pre-compiled images. 
+If you want to use these images, to not recreate the from sratch, you need to login to the private repository first: 
+```
+docker login docker-tam-dev.dr.corp.adobe.com 
+```
+Use Adobe enterprise username (without '@adobe.com) and password for login. 
+
+Afterwards you want to pull the images used in the compose-file: 
+```
+docker-compose pull 
+```
+
+## Known issues
+
+### Access AEM Environment using Windows
 If you use Docker-Toolbox (or Boot2Docker) you need to identify the "default-VM"'s IP address, to access the AEM on docker:
 ```boot2docker ip```
 or 
 ```docker-machine ip```
 
-Through this IP you can access the AEM author and publish as well as the Apache dispatcher through the known standard ports.
-
-## Known issues
+Through this IP you can access the AEM author and publish as well as the Apache dispatcher through the known standard ports. 
 
 ### Docker-Volumes on VirtualBox (Win) - Access rights must be set to enable container to access windows folders  
 On Windows VirtualBox is used as Virtualisation Enginge to tun Docker. 
