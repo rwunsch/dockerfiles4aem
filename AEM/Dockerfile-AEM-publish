@@ -1,4 +1,4 @@
-# Dockerized AEM publisher image
+## Dockerized AEM publisher image
 
 FROM docker-tam-dev.dr.corp.adobe.com/aem-base:AEM6.1.0-SP0
 

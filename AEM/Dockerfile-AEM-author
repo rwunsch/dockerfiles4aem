@@ -1,4 +1,4 @@
-# Dockerized AEM author image
+## Dockerized AEM author image
 
 FROM docker-tam-dev.dr.corp.adobe.com/aem-base:AEM6.1.0-SP0
 

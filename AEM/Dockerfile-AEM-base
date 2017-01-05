@@ -1,4 +1,4 @@
-# Dockerized AEM 6.1 base image
+## Dockerized AEM 6.1 base image
 
 FROM ubuntu:14.04
 
@@ -13,7 +13,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV JAVA_VERSION 8
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
-# Install updates and Java 8
+## Install updates and Java 8
 RUN apt-get update && \
     apt-get install -y curl unzip software-properties-common && \
     add-apt-repository ppa:webupd8team/java && \
@@ -25,21 +25,20 @@ RUN apt-get update && \
     apt-get purge && \
     update-alternatives --display java
 
-# Cleanup installation
+## Cleanup installation
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /var/cache/oracle-jdk8-installer
 
-# Add quick-start file and license properties
+## Add quick-start file and license properties
 #ADD ./$AEM_QUICKSTART_FILE $AEM_WORKING_DIR/$AEM_QUICKSTART_FILE
-
 ADD https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/day/cq/cq-quickstart/$AEM_VERSION/cq-quickstart-$AEM_VERSION.jar $AEM_WORKING_DIR/$AEM_QUICKSTART_FILE
 ADD ./license.properties $AEM_WORKING_DIR/license.properties
 
-# Add install folder 
+## Add install folder 
 ADD install $AEM_WORKING_DIR/install/
 
-# Create user and unpack AEM quick-start
+## Create user and unpack AEM quick-start
 RUN groupadd -r $AEM_USER && useradd -r -g $AEM_USER $AEM_USER -d $AEM_WORKING_DIR && \
     java -jar $AEM_WORKING_DIR/$AEM_QUICKSTART_FILE -unpack && \
     chown -R $AEM_USER:$AEM_USER $AEM_WORKING_DIR
