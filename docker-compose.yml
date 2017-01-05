@@ -1,9 +1,14 @@
 version: '2'
 
+## DO NOT use the default bridge as containers cannot find each other using names in the default bridge
+## This is due to backward compatability: https://docs.docker.com/engine/userguide/networking/
 #networks:
 #  default:
 #    external:
 #      name: bridge
+
+networks:
+    aem-network:
 
 services:
     aem-base:
@@ -12,20 +17,28 @@ services:
           dockerfile: Dockerfile-AEM-base
         image: docker-tam-dev.dr.corp.adobe.com/aem-base:AEM6.1.0-SP0
         container_name: base
-        network_mode: bridge
+        #network_mode: bridge
+        networks:
+            aem-network:
+                aliases:
+                    - aem-base
     publish:
         build:
           context: ./AEM
           dockerfile: Dockerfile-AEM-publish
         image: docker-tam-dev.dr.corp.adobe.com/aem-publish:AEM6.1.0-SP0
         container_name: publish
-        network_mode: bridge
+        #network_mode: bridge
+        networks:
+            aem-network:
+                aliases:
+                    - publish
         ports:
             - "4503:4503"
             - "4603:4603"
             - "40404:40404"
-        links:
-            - aem-base
+        #links:
+        #    - aem-base
         #logging:
         #    driver: syslog
         #    options:
@@ -42,13 +55,17 @@ services:
           dockerfile: Dockerfile-AEM-author
         image: docker-tam-dev.dr.corp.adobe.com/aem-author:AEM6.1.0-SP0
         container_name: author
-        network_mode: bridge
+        #network_mode: bridge
+        networks:
+            aem-network:
+                aliases:
+                    - author
         ports:
             - "4502:4502"
             - "4602:4602"
             - "30303:30303"
-        links:
-            - publish
+        #links:
+        #    - publish
         #logging:
         #    driver: syslog
         #    options:
@@ -66,11 +83,15 @@ services:
           dockerfile: Dockerfile
         image: docker-tam-dev.dr.corp.adobe.com/apache-dispatcher:2.4-4.1.12
         container_name: dispatcher
-        network_mode: bridge
+        #network_mode: bridge
+        networks:
+            aem-network:
+                aliases:
+                    - dispatcher
         ports:
             - "80:80"
-        links:
-            - publish
+        #links:
+        #    - publish
         #logging:
         #    driver: syslog
         #    options:

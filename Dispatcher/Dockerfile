@@ -42,4 +42,9 @@ ENV APACHE_LOCK_DIR /var/lock/apache2
 
 ENV DISPATCHER_PUBLISH_PORT 80
 
+## Linking the standard-out and error-out to the AEM logs.
+## Doing so enables the "docker log" command to read the logs.
+RUN ln -sf /dev/stdout /var/log/apache2/access.log
+RUN ln -sf /dev/stderr /var/log/apache2/error.log
+
 CMD /usr/sbin/apache2ctl -D FOREGROUND
