@@ -4,11 +4,6 @@ FROM ubuntu:14.04
 
 MAINTAINER Robert Wunsch <wunsch@adobe.com>
 
-ENV AEM_VERSION 6.1.0
-ENV AEM_QUICKSTART_FILE cq-quickstart-${AEM_VERSION}.jar
-
-ENV AEM_USER aem
-ENV AEM_WORKING_DIR /opt/aem
 ENV DEBIAN_FRONTEND noninteractive
 ENV JAVA_VERSION 8
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
@@ -30,6 +25,11 @@ RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /var/cache/oracle-jdk8-installer
 
+ENV AEM_VERSION 6.1.0
+ENV AEM_QUICKSTART_FILE cq-quickstart-${AEM_VERSION}.jar
+ENV AEM_USER aem
+ENV AEM_WORKING_DIR /opt/aem	
+	
 ## Add quick-start file and license properties
 #ADD ./$AEM_QUICKSTART_FILE $AEM_WORKING_DIR/$AEM_QUICKSTART_FILE
 ADD https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/day/cq/cq-quickstart/$AEM_VERSION/$AEM_QUICKSTART_FILE $AEM_WORKING_DIR/
@@ -41,7 +41,7 @@ RUN groupadd -r $AEM_USER && useradd -r -g $AEM_USER $AEM_USER -d $AEM_WORKING_D
     chown -R $AEM_USER:$AEM_USER $AEM_WORKING_DIR
 
 ## Add install folder 
-ADD install $AEM_WORKING_DIR/install/
+ADD install $AEM_WORKING_DIR/crx-quickstart/install/
 
 ## Add additional files to install folder
 ### -- Service Packs --
