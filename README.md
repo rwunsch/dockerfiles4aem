@@ -1,5 +1,5 @@
-# Dockerfile(s) for Adobe AEM 
-# (formally known as CQ5) 
+# Dockerfile(s) for Adobe AEM (CQ5)
+ 
 ### Dockerfiles for a complete environment for AEM
 
 ## Abstract
