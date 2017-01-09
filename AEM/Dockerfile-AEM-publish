@@ -8,7 +8,7 @@ ENV CQ_RUNMODE publish
 ENV CQ_PORT 4503
 ENV DEBUG_PORT 40404
 
-RUN mv crx-quickstart/install-base/* crx-quickstart/install/
+RUN mv install-base/* crx-quickstart/install/ && rm -rf install-base
 
 RUN echo sling.run.modes=${CQ_RUNMODE} >> crx-quickstart/conf/sling.properties && \
     crx-quickstart/bin/start && \
@@ -25,7 +25,7 @@ EXPOSE $JMX_PORT
 ## Linking the standard-out and error-out to the AEM logs.
 ## Doing so enables the "docker log" command to read the logs.
 RUN ln -sf /dev/stdout crx-quickstart/logs/access.log
-RUN ln -sf /dev/stderr crx-quickstart/logs//error.log
+RUN ln -sf /dev/stderr crx-quickstart/logs/error.log
 
 CMD java \
 	-Dcom.sun.management.jmxremote \
