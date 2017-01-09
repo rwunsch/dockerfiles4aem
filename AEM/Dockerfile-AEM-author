@@ -16,12 +16,12 @@ RUN echo sling.run.modes=${CQ_RUNMODE} >> crx-quickstart/conf/sling.properties &
 	## DO INITIAL SET-UP CURL STUFF HERE
     crx-quickstart/bin/stop
 
+ENV JMX_PORT 4602	
+ENV DOCKER_IP 192.168.99.100
+	
 EXPOSE $CQ_PORT
 EXPOSE $DEBUG_PORT
 EXPOSE $JMX_PORT
-
-ENV JMX_PORT 4602
-ENV DOCKER_IP 192.168.99.100
 
 ## Linking the standard-out and error-out to the AEM logs.
 ## Doing so enables the "docker log" command to read the logs.
