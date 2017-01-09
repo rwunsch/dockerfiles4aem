@@ -67,7 +67,7 @@ services:
             - "30303:30303"
         ## Link is only set for docker-compose build and start-up (aem-base first, then publish, then author)
         links:
-            - publish
+            - aem-base
         #logging:
         #    driver: syslog
         #    options:
