@@ -5,7 +5,7 @@ FROM ubuntu:14.04
 MAINTAINER Robert Wunsch <wunsch@adobe.com>
 
 ENV AEM_VERSION 6.1.0
-ENV AEM_QUICKSTART_FILE aem-quickstart-${AEM_VERSION}.jar
+ENV AEM_QUICKSTART_FILE cq-quickstart-${AEM_VERSION}.jar
 
 ENV AEM_USER aem
 ENV AEM_WORKING_DIR /opt/aem
@@ -32,7 +32,7 @@ RUN apt-get clean && \
 
 ## Add quick-start file and license properties
 #ADD ./$AEM_QUICKSTART_FILE $AEM_WORKING_DIR/$AEM_QUICKSTART_FILE
-ADD https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/day/cq/cq-quickstart/$AEM_VERSION/aem-quickstart-$AEM_VERSION.jar $AEM_WORKING_DIR/$AEM_QUICKSTART_FILE
+ADD https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/day/cq/cq-quickstart/$AEM_VERSION/$AEM_QUICKSTART_FILE $AEM_WORKING_DIR/
 ADD ./license.properties $AEM_WORKING_DIR/license.properties
 
 ## Create user and unpack AEM quick-start
