@@ -45,16 +45,16 @@ ADD install $AEM_WORKING_DIR/install/
 
 ## Add additional files to install folder
 ### -- Service Packs --
-#ADD  https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/aem-service-pkg/6.0.SP1/aem-service-pkg-6.0.SP1.zip $AEM_WORKING_DIR/install/
-#ADD  https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/aem-service-pkg/6.0.SP2/aem-service-pkg-6.0.SP2.zip $AEM_WORKING_DIR/install/
-#ADD  https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/aem-service-pkg/6.0.SP3/aem-service-pkg-6.0.SP3.zip $AEM_WORKING_DIR/install/
-ADD  https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/aem-service-pkg/6.1.SP1/aem-service-pkg-6.1.SP1.zip  $AEM_WORKING_DIR/install/	
-#ADD  https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/aem-service-pkg/6.1.SP2/aem-service-pkg-6.1.SP2.zip $AEM_WORKING_DIR/install/
-#ADD  https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/aem-service-pkg/6.2.SP1/aem-service-pkg-6.2.SP1.zip $AEM_WORKING_DIR/install/
+#ADD  https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/aem-service-pkg/6.0.SP1/aem-service-pkg-6.0.SP1.zip $AEM_WORKING_DIR/install-base/
+#ADD  https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/aem-service-pkg/6.0.SP2/aem-service-pkg-6.0.SP2.zip $AEM_WORKING_DIR/install-base/
+#ADD  https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/aem-service-pkg/6.0.SP3/aem-service-pkg-6.0.SP3.zip $AEM_WORKING_DIR/install-base/
+ADD  https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/aem-service-pkg/6.1.SP1/aem-service-pkg-6.1.SP1.zip  $AEM_WORKING_DIR/install-base/	
+#ADD  https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/aem-service-pkg/6.1.SP2/aem-service-pkg-6.1.SP2.zip $AEM_WORKING_DIR/install-base/
+#ADD  https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/aem-service-pkg/6.2.SP1/aem-service-pkg-6.2.SP1.zip $AEM_WORKING_DIR/install-base/
 
 ### -- CFPs ---
-#ADD https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/cumulativefixpack/cq-6.1.0-sp2-cfp/2.0/cq-6.1.0-sp2-cfp-2.0.zip $AEM_WORKING_DIR/install/	
-#ADD https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/cumulativefixpack/cq-6.1.0-sp2-cfp/3.0/cq-6.1.0-sp2-cfp-3.0.zip $AEM_WORKING_DIR/install/
+#ADD https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/cumulativefixpack/cq-6.1.0-sp2-cfp/2.0/cq-6.1.0-sp2-cfp-2.0.zip $AEM_WORKING_DIR/install-base/	
+#ADD https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/cumulativefixpack/cq-6.1.0-sp2-cfp/3.0/cq-6.1.0-sp2-cfp-3.0.zip $AEM_WORKING_DIR/install-base/
 	
 USER $AEM_USER
 WORKDIR $AEM_WORKING_DIR
