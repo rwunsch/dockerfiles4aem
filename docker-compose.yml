@@ -37,8 +37,9 @@ services:
             - "4503:4503"
             - "4603:4603"
             - "40404:40404"
-        #links:
-        #    - aem-base
+        ## Link is only set for docker-compose build and start-up (aem-base first, then publish, then author)
+        links:
+            - aem-base
         #logging:
         #    driver: syslog
         #    options:
@@ -64,8 +65,9 @@ services:
             - "4502:4502"
             - "4602:4602"
             - "30303:30303"
-        #links:
-        #    - publish
+        ## Link is only set for docker-compose build and start-up (aem-base first, then publish, then author)
+        links:
+            - publish
         #logging:
         #    driver: syslog
         #    options:
@@ -90,8 +92,9 @@ services:
                     - dispatcher
         ports:
             - "80:80"
-        #links:
-        #    - publish
+        ## Link is only set for docker-compose build and start-up order (aem-base first)
+        links:
+            - publish
         #logging:
         #    driver: syslog
         #    options:
