@@ -1,5 +1,5 @@
-# dockerfiles4aem
-### Docker environment for AEM
+# Dockerfile(s) for Adobe AEM - fka. CQ5 (dockerfiles4aem)
+### Dockerfiles for a complete environment for AEM
 
 ## Abstract
 Docker automates the deployment of applications and isolates them inside software containers, by providing an additional layer of abstraction and automation but with out the overhead caused by a virtual machine. 
