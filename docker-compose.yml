@@ -36,7 +36,7 @@ services:
             - CQ_PORT=4503
             - DEBUG_PORT=40404
             - JMX_PORT=4603
-            - JMX_IP=0.0.0.0
+            - JMX_HOST_OR_IP=publish
             - HEAP_SIZE=2048m
         container_name: publish
         #network_mode: bridge
@@ -72,7 +72,7 @@ services:
             - DEBUG_PORT=30303
             - PUBLISH_HOST=publish
             - JMX_PORT=4602
-            - JMX_IP=0.0.0.0
+            - JMX_HOST_OR_IP=author
             - HEAP_SIZE=2048m
         container_name: author
         #network_mode: bridge
