@@ -40,7 +40,7 @@ CMD java \
 	-XX:+PrintGC \
 	-XX:+HeapDumpOnOutOfMemoryError \
 	-XX:HeapDumpPath=${AEM_WORKING_DIR}/logs \
-	-debug ${DEBUG_PORT} \
+#	-debug ${DEBUG_PORT} \
 #   -Xdebug \
 #   -Xrunjdwp:transport=dt_socket,address=${DEBUG_PORT},server=y,suspend=n \
 	-jar ${AEM_QUICKSTART_FILE} -p ${CQ_PORT} -r ${CQ_RUNMODE} -nobrowser -verbose -nofork
