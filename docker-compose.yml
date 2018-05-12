@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 ## DO NOT use the default bridge as containers cannot find each other using names in the default bridge
 ## This is due to backward compatability: https://docs.docker.com/engine/userguide/networking/
@@ -15,13 +15,16 @@ services:
         build:
           context: ./AEM
           dockerfile: Dockerfile-AEM-base
+          args:
+            - JAVA_VERSION=8
+            - AEM_VERSION=6.1.0
         image: docker-tam-dev.dr.corp.adobe.com/aem-base:AEM6.1.0-SP1
         container_name: base
         #network_mode: bridge
         networks:
             aem-network:
                 aliases:
-                    - aem-base
+                    - aem-base  
     publish:
         build:
           context: ./AEM
@@ -46,10 +49,10 @@ services:
         #        syslog-address: "tcp://192.168.99.1:514"
         volumes:
             # Specify an absolute path mapping
-            #- ${PWD}/dockervolume/aem-publish/launchpad:/opt/aem/crx-quickstart/launchpad
-            #- ${PWD}/dockervolume/aem-publish/conf:/opt/aem/crx-quickstart/conf
-            - ${PWD}/dockervolume/aem-publish/install:/opt/aem/crx-quickstart/install
-            - ${PWD}/dockervolume/aem-publish/logs:/opt/aem/crx-quickstart/logs
+            #- "./dockervolume/aem-publish/launchpad:/opt/aem/crx-quickstart/launchpad"
+            #- "./dockervolume/aem-publish/conf:/opt/aem/crx-quickstart/conf"
+            - "./dockervolume/aem-publish/install:/opt/aem/crx-quickstart/install"
+            - "./dockervolume/aem-publish/logs:/opt/aem/crx-quickstart/logs"
     author:
         build:
           context: ./AEM
@@ -74,10 +77,10 @@ services:
         #        syslog-address: "tcp://192.168.99.1:514"
         volumes:
             # Specify an absolute path mapping            
-            #- ${PWD}/dockervolume/aem-author/launchpad:/opt/aem/crx-quickstart/launchpad
-            #- ${PWD}/dockervolume/aem-author/conf:/opt/aem/crx-quickstart/conf
-            - ${PWD}/dockervolume/aem-author/install:/opt/aem/crx-quickstart/install
-            - ${PWD}/dockervolume/aem-author/logs:/opt/aem/crx-quickstart/logs
+            #- "./dockervolume/aem-author/launchpad:/opt/aem/crx-quickstart/launchpad"
+            #- "./dockervolume/aem-author/conf:/opt/aem/crx-quickstart/conf"
+            - "./dockervolume/aem-author/install:/opt/aem/crx-quickstart/install"
+            - "./dockervolume/aem-author/logs:/opt/aem/crx-quickstart/logs"
 
     dispatcher:
         build:
@@ -101,11 +104,11 @@ services:
         #        syslog-address: "tcp://192.168.99.1:514"
         volumes:
             # Specify an absolute path mapping
-            - ${PWD}/dockervolume/aem-dispatcher/apache2/sites-enabled:/etc/apache2/sites-enabled
-            - ${PWD}/dockervolume/aem-dispatcher/apache2/conf-enabled:/etc/apache2/conf-enabled
-            - ${PWD}/dockervolume/aem-dispatcher/apache2/conf.d:/etc/apache2/conf.d
-            - ${PWD}/dockervolume/aem-dispatcher/var/www/html:/var/www/html
-            - ${PWD}/dockervolume/aem-dispatcher/var/log/apache2:/var/log/apache2
+            - "./dockervolume/aem-dispatcher/apache2/sites-enabled:/etc/apache2/sites-enabled"
+            - "./dockervolume/aem-dispatcher/apache2/conf-enabled:/etc/apache2/conf-enabled"
+            - "./dockervolume/aem-dispatcher/apache2/conf.d:/etc/apache2/conf.d"
+            - "./dockervolume/aem-dispatcher/var/www/html:/var/www/html"
+            - "./dockervolume/aem-dispatcher/var/log/apache2:/var/log/apache2"
         environment:
             - DISPATCHER_PUBLISH_PORT=4503
             - DISPATCHER_PUBLISH_HOSTNAME=publish

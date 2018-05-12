@@ -1,62 +1,67 @@
-## Dockerized AEM 6.1 base image
+## Dockerized AEM base image
 
 FROM ubuntu:14.04
 
 MAINTAINER Robert Wunsch <wunsch@adobe.com>
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV JAVA_VERSION 8
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+ARG JAVA_VERSION
 
-## Install updates and Java 8
+ENV JAVA_HOME /usr/lib/jvm/java-${JAVA_VERSION}-oracle
+ENV DEBIAN_FRONTEND noninteractive
+
+## Install updates and Java 
 RUN apt-get update && \
     apt-get install -y curl unzip software-properties-common && \
     add-apt-repository ppa:webupd8team/java && \
     apt-get update && \
     apt-get -y upgrade && \
     echo oracle-java${JAVA_VERSION}-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-    apt-get -y install oracle-java8-installer && \
+    apt-get -y install oracle-java${JAVA_VERSION}-installer && \
     apt-get clean && \
     apt-get purge && \
     update-alternatives --display java
-
 ## Cleanup installation
-RUN apt-get clean && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
-    rm -rf /var/cache/oracle-jdk8-installer
+    rm -rf /var/cache/oracle-jdk${JAVA_VERSION}-installer
 
-ENV AEM_VERSION 6.1.0
-ENV AEM_QUICKSTART_FILE cq-quickstart-${AEM_VERSION}.jar
-ENV AEM_USER aem
-ENV AEM_WORKING_DIR /opt/aem	
+#ENV AEM_VERSION 6.1.0
+#ENV AEM_QUICKSTART_FILE cq-quickstart-${AEM_VERSION}.jar
+#ENV AEM_USER aem
+#ENV AEM_WORKING_DIR /opt/aem	
+ARG AEM_VERSION
+ARG AEM_QUICKSTART_FILE cq-quickstart-${AEM_VERSION}.jar
+ARG AEM_USER aem
+ARG AEM_WORKING_DIR /opt/aem
 	
 ## Add quick-start file and license properties
-#ADD ./$AEM_QUICKSTART_FILE $AEM_WORKING_DIR/$AEM_QUICKSTART_FILE
-ADD https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/day/cq/cq-quickstart/$AEM_VERSION/$AEM_QUICKSTART_FILE $AEM_WORKING_DIR/
-ADD ./license.properties $AEM_WORKING_DIR/license.properties
+#ADD ./${AEM_QUICKSTART_FILE} ${AEM_WORKING_DIR}/${AEM_QUICKSTART_FILE}
+ADD https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/day/cq/cq-quickstart/${AEM_VERSION}/${AEM_QUICKSTART_FILE} ${AEM_WORKING_DIR}/
+ADD ./license.properties ${AEM_WORKING_DIR}/license.properties
 
 ## Create user and unpack AEM quick-start
-RUN groupadd -r $AEM_USER && useradd -r -g $AEM_USER $AEM_USER -d $AEM_WORKING_DIR && \
-    java -jar $AEM_WORKING_DIR/$AEM_QUICKSTART_FILE -unpack && \
-    chown -R $AEM_USER:$AEM_USER $AEM_WORKING_DIR
+RUN groupadd -r ${AEM_USER} && useradd -r -g ${AEM_USER} ${AEM_USER} -d ${AEM_WORKING_DIR} && \
+    java -jar ${AEM_WORKING_DIR}/${AEM_QUICKSTART_FILE} -unpack && \
+    chown -R ${AEM_USER}:${AEM_USER} ${AEM_WORKING_DIR}
 
 ## Add install folder 
-ADD install $AEM_WORKING_DIR/crx-quickstart/install/
+ADD install ${AEM_WORKING_DIR}/crx-quickstart/install/
 
 ## Add additional files to install folder
 ### -- Service Packs --
-#ADD  https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/aem-service-pkg/6.0.SP1/aem-service-pkg-6.0.SP1.zip $AEM_WORKING_DIR/install-base/
-#ADD  https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/aem-service-pkg/6.0.SP2/aem-service-pkg-6.0.SP2.zip $AEM_WORKING_DIR/install-base/
-#ADD  https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/aem-service-pkg/6.0.SP3/aem-service-pkg-6.0.SP3.zip $AEM_WORKING_DIR/install-base/
-ADD  https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/aem-service-pkg/6.1.SP1/aem-service-pkg-6.1.SP1.zip  $AEM_WORKING_DIR/install-base/	
-#ADD  https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/aem-service-pkg/6.1.SP2/aem-service-pkg-6.1.SP2.zip $AEM_WORKING_DIR/install-base/
-#ADD  https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/aem-service-pkg/6.2.SP1/aem-service-pkg-6.2.SP1.zip $AEM_WORKING_DIR/install-base/
+#ADD  https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/aem-service-pkg/6.0.SP1/aem-service-pkg-6.0.SP1.zip ${AEM_WORKING_DIR}/install-base/
+#ADD  https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/aem-service-pkg/6.0.SP2/aem-service-pkg-6.0.SP2.zip ${AEM_WORKING_DIR}/install-base/
+#ADD  https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/aem-service-pkg/6.0.SP3/aem-service-pkg-6.0.SP3.zip ${AEM_WORKING_DIR}/install-base/
+#ADD  https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/aem-service-pkg/6.1.SP1/aem-service-pkg-6.1.SP1.zip  ${AEM_WORKING_DIR}/install-base/	
+ADD  https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/aem-service-pkg/6.1.SP2/aem-service-pkg-6.1.SP2.zip ${AEM_WORKING_DIR}/install-base/
+#ADD  https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/aem-service-pkg/6.2.SP1/aem-service-pkg-6.2.SP1.zip ${AEM_WORKING_DIR}/install-base/
 
 ### -- CFPs ---
-#ADD https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/cumulativefixpack/cq-6.1.0-sp2-cfp/2.0/cq-6.1.0-sp2-cfp-2.0.zip $AEM_WORKING_DIR/install-base/	
-#ADD https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/cumulativefixpack/cq-6.1.0-sp2-cfp/3.0/cq-6.1.0-sp2-cfp-3.0.zip $AEM_WORKING_DIR/install-base/
+#ADD https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/cumulativefixpack/cq-6.1.0-sp2-cfp/2.0/cq-6.1.0-sp2-cfp-2.0.zip ${AEM_WORKING_DIR}/install-base/	
+#ADD https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/cumulativefixpack/cq-6.1.0-sp2-cfp/3.0/cq-6.1.0-sp2-cfp-3.0.zip ${AEM_WORKING_DIR}/install-base/
+ADD https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/cumulativefixpack/cq-6.1.0-sp2-cfp/11.2/cq-6.1.0-sp2-cfp-11.2.zip ${AEM_WORKING_DIR}/install-base/
 	
-RUN chown -R $AEM_USER:$AEM_USER $AEM_WORKING_DIR	
+RUN chown -R ${AEM_USER}:${AEM_USER} ${AEM_WORKING_DIR}	
 	
-USER $AEM_USER
-WORKDIR $AEM_WORKING_DIR
+USER ${AEM_USER}
+WORKDIR ${AEM_WORKING_DIR}

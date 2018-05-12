@@ -12,15 +12,17 @@ RUN mv install-base/* crx-quickstart/install/ && rm -rf install-base
 
 RUN echo sling.run.modes=${CQ_RUNMODE} >> crx-quickstart/conf/sling.properties && \
     crx-quickstart/bin/start && \
-    until $(curl -u admin:admin --output /dev/null --silent --head --fail http://localhost:$CQ_PORT); do printf '.'; sleep 5; done && \
+    until $(curl -u admin:admin --output /dev/null --silent --head --fail http://localhost:${CQ_PORT}); do printf '.'; sleep 5; done && \
+	## DO INITIAL SET-UP CURL STUFF HERE
     crx-quickstart/bin/stop
 
 ENV JMX_PORT 4603
-ENV DOCKER_IP 192.168.99.100
+ENV DOCKER_IP 0.0.0.0
+ENV HEAP_SIZE 2048m
 	
-EXPOSE $CQ_PORT
-EXPOSE $DEBUG_PORT
-EXPOSE $JMX_PORT
+EXPOSE ${CQ_PORT}
+EXPOSE ${DEBUG_PORT}
+EXPOSE ${JMX_PORT}
 
 ## Linking the standard-out and error-out to the AEM logs.
 ## Doing so enables the "docker log" command to read the logs.
@@ -29,14 +31,18 @@ RUN ln -sf /dev/stderr crx-quickstart/logs/error.log
 
 CMD java \
 	-Dcom.sun.management.jmxremote \
-	-Dcom.sun.management.jmxremote.port=$JMX_PORT \
-	-Dcom.sun.management.jmxremote.rmi.port=$JMX_PORT \
+	-Dcom.sun.management.jmxremote.port=${JMX_PORT} \
+	-Dcom.sun.management.jmxremote.rmi.port=${JMX_PORT} \
 	-Dcom.sun.management.jmxremote.ssl=false \
 	-Dcom.sun.management.jmxremote.authenticate=false \
 	-Dcom.sun.management.jmxremote.local.only=false \
-	-Djava.rmi.server.hostname=$DOCKER_IP \
+	-Djava.rmi.server.hostname=${DOCKER_IP} \
     -Djava.awt.headless=true \
-	-XX:MaxPermSize=256M -Xms512m -Xmx2048m \
-    -Xdebug \
-	-agentlib:jdwp=transport=dt_socket,address=$DEBUG_PORT,server=y,suspend=n \
-	-jar $AEM_QUICKSTART_FILE -p $CQ_PORT -r $CQ_RUNMODE -nobrowser -verbose -nofork
+	-XX:MaxPermSize=256M -Xms${HEAP_SIZE} -Xmx${HEAP_SIZE} \
+	-XX:+PrintGC \
+	-XX:+HeapDumpOnOutOfMemoryError \
+	-XX:HeapDumpPath=${AEM_WORKING_DIR}/logs \
+	-debug ${DEBUG_PORT} \
+#   -Xdebug \
+#   -Xrunjdwp:transport=dt_socket,address=${DEBUG_PORT},server=y,suspend=n \
+	-jar ${AEM_QUICKSTART_FILE} -p ${CQ_PORT} -r ${CQ_RUNMODE} -nobrowser -verbose -nofork
