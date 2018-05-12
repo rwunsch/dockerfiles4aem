@@ -17,8 +17,9 @@ services:
           dockerfile: Dockerfile-AEM-base
           args:
             - JAVA_VERSION=8
-            - AEM_VERSION=6.3.0
         image: docker-tam-dev.dr.corp.adobe.com/aem-base:AEM6.3.0
+        environment:
+            - AEM_VERSION=6.3.0
         container_name: base
         #network_mode: bridge
         networks:

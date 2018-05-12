@@ -1,6 +1,7 @@
 
 ## AEM Files - need to be copied into the repository by user
 aem-quickstart-*.jar
+cq-quickstart-*.jar
 license.properties
 
 
