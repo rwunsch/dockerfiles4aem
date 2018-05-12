@@ -31,6 +31,13 @@ services:
           context: ./AEM
           dockerfile: Dockerfile-AEM-publish
         image: docker-tam-dev.dr.corp.adobe.com/aem-publish:AEM6.3.0
+        environment:
+            - CQ_RUNMODE=publish
+            - CQ_PORT=4503
+            - DEBUG_PORT=40404
+            - JMX_PORT=4603
+            - JMX_IP=0.0.0.0
+            - HEAP_SIZE=2048m
         container_name: publish
         #network_mode: bridge
         networks:
@@ -59,6 +66,14 @@ services:
           context: ./AEM
           dockerfile: Dockerfile-AEM-author
         image: docker-tam-dev.dr.corp.adobe.com/aem-author:AEM6.3.0
+        environment:
+            - CQ_RUNMODE=author
+            - CQ_PORT=4502
+            - DEBUG_PORT=30303
+            - PUBLISH_HOST=publish
+            - JMX_PORT=4602
+            - JMX_IP=0.0.0.0
+            - HEAP_SIZE=2048m
         container_name: author
         #network_mode: bridge
         networks:
