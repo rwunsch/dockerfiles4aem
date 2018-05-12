@@ -17,8 +17,8 @@ services:
           dockerfile: Dockerfile-AEM-base
           args:
             - JAVA_VERSION=8
-            - AEM_VERSION=6.1.0
-        image: docker-tam-dev.dr.corp.adobe.com/aem-base:AEM6.1.0-SP1
+            - AEM_VERSION=6.3.0
+        image: docker-tam-dev.dr.corp.adobe.com/aem-base:AEM6.3.0
         container_name: base
         #network_mode: bridge
         networks:
@@ -29,7 +29,7 @@ services:
         build:
           context: ./AEM
           dockerfile: Dockerfile-AEM-publish
-        image: docker-tam-dev.dr.corp.adobe.com/aem-publish:AEM6.1.0-SP1
+        image: docker-tam-dev.dr.corp.adobe.com/aem-publish:AEM6.3.0
         container_name: publish
         #network_mode: bridge
         networks:
@@ -57,7 +57,7 @@ services:
         build:
           context: ./AEM
           dockerfile: Dockerfile-AEM-author
-        image: docker-tam-dev.dr.corp.adobe.com/aem-author:AEM6.1.0-SP1
+        image: docker-tam-dev.dr.corp.adobe.com/aem-author:AEM6.3.0
         container_name: author
         #network_mode: bridge
         networks:

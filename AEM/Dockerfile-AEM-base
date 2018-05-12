@@ -24,7 +24,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /var/cache/oracle-jdk${JAVA_VERSION}-installer
 
-#ENV AEM_VERSION 6.1.0
+#ENV AEM_VERSION 6.3.0
 #ENV AEM_QUICKSTART_FILE cq-quickstart-${AEM_VERSION}.jar
 #ENV AEM_USER aem
 #ENV AEM_WORKING_DIR /opt/aem	
