@@ -36,7 +36,8 @@ services:
             - CQ_PORT=4503
             - DEBUG_PORT=40404
             - JMX_PORT=4603
-            - JMX_HOST_OR_IP=localhost
+            ## Change the JMX_HOST_OR_IP to the DockerHost-hostname (FQDN) or it's IP, depending on how you access the instance through RMI
+            - JMX_HOST_OR_IP=localhost  
             - HEAP_SIZE=2048m
         container_name: publish
         #network_mode: bridge
@@ -72,6 +73,7 @@ services:
             - DEBUG_PORT=30303
             - PUBLISH_HOST=publish
             - JMX_PORT=4602
+            ## Change the JMX_HOST_OR_IP to the DockerHost-hostname (FQDN) or it's IP, depending on how you access the instance through RMI
             - JMX_HOST_OR_IP=localhost
             - HEAP_SIZE=2048m
         container_name: author
