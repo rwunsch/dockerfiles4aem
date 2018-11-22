@@ -1,6 +1,6 @@
 ## Dockerized AEM base image
-
 FROM ubuntu:14.04
+#FROM phusion/baseimage:0.10.1
 
 MAINTAINER Robert Wunsch <wunsch@adobe.com>
 
@@ -40,7 +40,9 @@ ADD ./license.properties ${AEM_WORKING_DIR}/license.properties
 ## Create user and unpack AEM quick-start
 RUN groupadd -r ${AEM_USER} && useradd -r -g ${AEM_USER} ${AEM_USER} -d ${AEM_WORKING_DIR} && \
     java -jar ${AEM_WORKING_DIR}/${AEM_QUICKSTART_FILE} -unpack && \
-    chown -R ${AEM_USER}:${AEM_USER} ${AEM_WORKING_DIR}
+    chown -R ${AEM_USER}:${AEM_USER} ${AEM_WORKING_DIR} && \
+	echo "user ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/user && \
+    chmod 0440 /etc/sudoers.d/user
 
 ## Add install folder 
 ADD install ${AEM_WORKING_DIR}/crx-quickstart/install/
