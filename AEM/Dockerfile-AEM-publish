@@ -28,6 +28,7 @@ RUN ln -sf /dev/stdout crx-quickstart/logs/access.log
 RUN ln -sf /dev/stderr crx-quickstart/logs/error.log
 
 CMD java \
+	-server \
 	-Dcom.sun.management.jmxremote \
 	-Dcom.sun.management.jmxremote.port=${JMX_PORT} \
 	-Dcom.sun.management.jmxremote.rmi.port=${JMX_PORT} \
