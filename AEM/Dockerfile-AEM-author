@@ -16,6 +16,8 @@ RUN echo sling.run.modes=${CQ_RUNMODE} >> crx-quickstart/conf/sling.properties &
     curl http://localhost:4502/etc/replication/agents.author/publish/jcr:content -F transportUri=http://${PUBLISH_HOST}:4503/bin/receive?sling:authRequestLogin=1 -uadmin:admin && \
 	## DO INITIAL SET-UP CURL STUFF HERE
     crx-quickstart/bin/stop
+	
+RUN wget https://github.com/Adobe-Consulting-Services/acs-aem-commons/releases/download/acs-aem-commons-3.19.0/acs-aem-commons-content-3.19.0.zip -P ${AEM_WORKING_DIR}/install
 
 ENV JMX_PORT=4602	
 ENV JMX_HOST_OR_IP=0.0.0.0
@@ -29,6 +31,8 @@ EXPOSE ${JMX_PORT}
 ## Doing so enables the "docker log" command to read the logs.
 RUN ln -sf /dev/stdout crx-quickstart/logs/access.log
 RUN ln -sf /dev/stderr crx-quickstart/logs/error.log
+
+
 
 CMD java \
 	-server \
