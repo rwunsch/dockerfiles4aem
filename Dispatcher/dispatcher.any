@@ -146,6 +146,39 @@
       # Flag indicating whether the dispatcher should serve stale content if
       # no remote server is available.
       #/serveStaleOnError "0"
+	  
+	  # Cache response headers next to a cached file. On the first request to
+	  # an uncached resource, all headers matching one of the values found here
+	  # are stored in a separate file, next to the cache file. On subsequent
+	  # requests to the cached resource, the stored headers are added to the
+	  # response.
+	  #
+	  # Note, that file globbing characters are not allowed here.
+	  #
+	  #/headers
+	  #  {
+	  #  "Cache-Control"
+	  #  "Content-Disposition"
+	  #  "Content-Type"
+	  #  "Expires"
+	  #  "Last-Modified"
+	  #  "X-Content-Type-Options"
+	  #  }
+	  /headers
+	    {
+	    "Cache-Control"
+	    "Content-Disposition"
+	    "Content-Type"
+	    "Expires"
+	    "Last-Modified"
+	    "X-Content-Type-Options"
+	    "Access-Control-Allow-Origin",
+	    "Access-Control-Expose-Headers",
+	    "Access-Control-Max-Age",
+	    "Access-Control-Allow-Credentials",
+	    "Access-Control-Allow-Methods",
+	    "Access-Control-Allow-Headers"
+	    }
       
       # The rules section defines what responses should be cached based on
       # the requested URL. Please note that only the following requests can
