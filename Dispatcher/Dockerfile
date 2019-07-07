@@ -22,13 +22,13 @@ RUN cd /tmp && \
 	wget https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd64.deb && \
 	dpkg -i mod-pagespeed-stable_current_amd64.deb 
 	
-COPY	pagespeed.conf /etc/apache2/mods-available/pagespeed.conf
+#COPY	pagespeed.conf /etc/apache2/mods-available/pagespeed.conf
 	
 COPY	ports.conf /etc/apache2/ports.conf
 
 COPY	80-dispatcher.conf /etc/apache2/sites-enabled/80-dispatcher.conf
 
-COPY	dispatcher-apache2.4-4.1.12.so /usr/lib/apache2/modules/dispatcher-apache2.4-4.1.12.so
+COPY	dispatcher-apache2.4-4.3.2.so /usr/lib/apache2/modules/dispatcher-apache2.4-4.3.2.so
 COPY	dispatcher.conf /etc/apache2/conf-enabled/dispatcher.conf
 COPY	dispatcher.any /etc/apache2/conf.d/dispatcher.any
 
