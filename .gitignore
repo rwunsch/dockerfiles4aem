@@ -4,6 +4,10 @@ aem-quickstart-*.jar
 cq-quickstart-*.jar
 license.properties
 
+## JAVA Files
+oracle-jdk*-installer.tar.gz
+jdk-*-linux-x64.tar.gz
+jdk-*-linux-x64_bin.tar.gz
 
 ## Dispatcher files - need to be copied into the repository by user
 dispatcher-apache*

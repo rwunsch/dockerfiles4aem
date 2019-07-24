@@ -17,6 +17,8 @@ services:
           dockerfile: Dockerfile-AEM-base
           args:
             - JAVA_VERSION=8
+            - JAVA_FILENAME=jdk-8u221-linux-x64.tar.gz
+            - JAVA_JDK_FOLDERNAME=jdk1.8.0_221
         image: docker-tam-dev.dr.corp.adobe.com/aem-base:AEM6.4.0
         environment:
             - AEM_VERSION=6.4.0

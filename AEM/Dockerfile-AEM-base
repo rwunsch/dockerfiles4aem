@@ -5,23 +5,32 @@ FROM phusion/baseimage:0.11
 MAINTAINER Robert Wunsch <wunsch@adobe.com>
 
 ARG JAVA_VERSION
+ARG JAVA_FILENAME
+ARG JAVA_JDK_FOLDERNAME
 
 ENV JAVA_HOME /usr/lib/jvm/java-${JAVA_VERSION}-oracle
 ENV DEBIAN_FRONTEND noninteractive
 
 ## Install updates and Java, ffMPEG, ImageMagick and Ghostscript
-RUN add-apt-repository ppa:webupd8team/java && \
-    apt-get update && \
-    apt-get -y upgrade && \
-    apt-get install -y curl unzip software-properties-common imagemagick ffmpeg ghostscript && \
-	echo oracle-java${JAVA_VERSION}-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-    apt-get -y install oracle-java${JAVA_VERSION}-installer && \
-    apt-get clean && \
-    apt-get purge && \
-    update-alternatives --display java && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
-    rm -rf /var/cache/oracle-jdk${JAVA_VERSION}-installer
+#RUN apt-get update && \
+#    apt-get -y upgrade && \
+#    apt-get install -y curl unzip software-properties-common imagemagick ffmpeg ghostscript && \
+#	echo oracle-java${JAVA_VERSION}-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
+#    apt-get clean && \
+#    apt-get purge && \
+#    apt-get clean && \
+#    rm -rf /var/lib/apt/lists/* && \
+    
+## Install Oracle JDK
+COPY ./${JAVA_FILENAME} /tmp/
+RUN mkdir /opt/jdk/ && \ 
+    mv /tmp/${JAVA_FILENAME} /opt/jdk/ && \
+    cd /opt/jdk/ && \
+    ls -lah /opt/jdk/ && \
+    tar -xvzf ${JAVA_FILENAME} && \
+    rm -rf ${JAVA_FILENAME} && \
+    update-alternatives --install /usr/bin/java java /opt/jdk/${JAVA_JDK_FOLDERNAME}/bin/java 100 && \
+    update-alternatives --install /usr/bin/javac javac /opt/jdk/${JAVA_JDK_FOLDERNAME}/bin/javac 100 
 	
 ARG ARTIFACTORY_USER_COLON_API_TOKEN
 
@@ -34,9 +43,9 @@ ENV AEM_QUICKSTART_FILE=$AEM_QUICKSTART_FILE
 ENV AEM_VERSION=$AEM_VERSION
 	
 ## Add quick-start file and license properties
-ADD ./${AEM_QUICKSTART_FILE} ${AEM_WORKING_DIR}/${AEM_QUICKSTART_FILE}
+COPY ./${AEM_QUICKSTART_FILE} ${AEM_WORKING_DIR}/${AEM_QUICKSTART_FILE}
 #ADD https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/day/cq/cq-quickstart/${AEM_VERSION}/${AEM_QUICKSTART_FILE} ${AEM_WORKING_DIR}/
-ADD ./license.properties ${AEM_WORKING_DIR}/license.properties
+COPY ./license.properties ${AEM_WORKING_DIR}/license.properties
 
 ## Create user and unpack AEM quick-start
 RUN groupadd -r ${AEM_USER} && useradd -r -g ${AEM_USER} ${AEM_USER} -d ${AEM_WORKING_DIR} && \

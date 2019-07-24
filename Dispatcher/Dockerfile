@@ -1,10 +1,14 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
+
+# https://ashout.com/enable-coredump-apache2-ubuntu/
+# https://httpd.apache.org/docs/current/mod/mpm_common.html#coredumpdirectory
 
 RUN	apt-get update && \
 	apt-get install -y \
 		wget \
 		apache2 \
 		apache2-doc && \
+		apache2-dbg libapr1-dbg libaprutil1-dbg gdb
 	a2enmod \
 		headers \
 		alias \
@@ -18,10 +22,10 @@ RUN	apt-get update && \
 	rm /var/www/html/* && \
 	rm /etc/apache2/sites-enabled/000-default.conf
 
-RUN cd /tmp && \
-	wget https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd64.deb && \
-	dpkg -i mod-pagespeed-stable_current_amd64.deb 
-	
+#RUN cd /tmp && \
+#	wget https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd64.deb && \
+#	dpkg -i mod-pagespeed-stable_current_amd64.deb 
+#	
 #COPY	pagespeed.conf /etc/apache2/mods-available/pagespeed.conf
 	
 COPY	ports.conf /etc/apache2/ports.conf
