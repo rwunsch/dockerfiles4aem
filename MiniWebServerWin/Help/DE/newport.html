@@ -1,0 +1,27 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="de-DE"><head><meta http-equiv="content-type" content="text/html; charset=iso-8859-1"><meta http-equiv="imagetoolbar" content="no">
+<meta name="robots" content="noindex">
+<style type="text/css">A:hover {background:#FFFF80; color:#000000; text-decoration:none}</style>
+</head>
+<body bgcolor="#FFFFFF" text="#000040" link="#0000ff" vlink="#0000ff" alink="#ff0000">
+
+<font face="Arial,Helvetica"><h2>Port</h2></font>
+<font face="Verdana,Arial,Helvetica" size=2>
+
+<p>Im Feld "Port" können Sie können Sie eine Zahl zwischen 1&nbsp;bis&nbsp;65535 eingeben,
+um den Webserver mit einem Port zu verbinden, bzw. einen neuen Task für einen neuen Port zu starten.</p>
+
+<p>Für Internetseiten (HTTP) wurde Port&nbsp;80 festgelegt, woran man sich jedoch nicht zwingend halten muss.
+Ohne abweichende Konfiguration versucht der Mini-Webserver deshalb sich an Port&nbsp;80 zu binden.</p>
+
+<p>Solange Sie noch keinen Port in der .ini-Datei expliziert festgelegt haben, testet der Webserver
+auch andere Ports, falls Port&nbsp;80 schon durch einen anderen Dienst belegt ist. Wenn sich der
+Webserver also bei Ihnen an Port&nbsp;81 startet, so lauscht an Port&nbsp;80 bereits ein anderes Programm.
+Dies könnte z.B. der Internet Information Server&nbsp;(IIS) sein, der bei Windows&nbsp;2000 und XP
+unwissentlich aktiviert sein könnte. Wenn Sie ihn nicht benötigen
+(erkennbar an der Frage "was&nbsp;macht denn der ISS&nbsp;?"), dann sollten Sie ihn lieber deaktivieren,
+zumal der IIS auch eine Sicherheitslücke darstellen könnte (wir erinnern uns an "Code&nbsp;Red" Viren-Angriffe).
+Sie finden den IIS unter Systemsteuerung | Software | Windows-Komponenten | IIS.</p>
+
+</font>
+</body></html>

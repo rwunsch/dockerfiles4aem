@@ -5,7 +5,7 @@ FROM phusion/baseimage:0.11
 MAINTAINER Robert Wunsch <wunsch@adobe.com>
 
 ARG JAVA_VERSION
-ARG JAVA_FILENAME
+ARG JAVA_FILENAME=jdk-8u181-linux-x64.tar.gz
 ARG JAVA_JDK_FOLDERNAME
 
 ENV JAVA_HOME /usr/lib/jvm/java-${JAVA_VERSION}-oracle
@@ -22,7 +22,8 @@ ENV DEBIAN_FRONTEND noninteractive
 #    rm -rf /var/lib/apt/lists/* && \
     
 ## Install Oracle JDK
-COPY ./${JAVA_FILENAME} /tmp/
+#COPY ./${JAVA_FILENAME} /tmp/
+ADD http://mirror.cnop.net/jdk/linux/${JAVA_FILENAME} /tmp/
 RUN mkdir /opt/jdk/ && \ 
     mv /tmp/${JAVA_FILENAME} /opt/jdk/ && \
     cd /opt/jdk/ && \

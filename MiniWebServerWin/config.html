@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="de-DE"><head><meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<base href="http://www.aidex.de/software/webserver/guide/config.html">
+<title>AIDeX Webserver Guide: Konfiguration / Parameter</title>
+</head>
+<body bgcolor="#FFFFFF" text="#000000" link="#0000ff" vlink="#0000ff" alink="#ff0000">
+<div align=center><table cellpadding=0 cellspacing=0 border=0 width=600><tr>
+<td><p><font face="Arial,Helvetica"><h2>AIDeX Mini-Webserver</h2>
+<h2>Konfiguration / Parameter</h2></font></p>
+
+<p><font face="Verdana,Arial,Helvetica" size=2>Der Webserver ist auch ohne besondere Konfiguration sofort lauff&auml;hig.
+Eine abweichende Konfiguration erfolgt &uuml;ber Eintr&auml;ge in einer <span style="background-color:#ffffa0">.ini-Datei</span>
+oder direkt beim Starten mittels <span style="background-color:#ffffa0">Kommandozeilen</span>-Parameter.
+Alle Parameter sind optional.</font></p></td>
+</tr></table><br>
+
+<table cellpadding=8 cellspacing=0 border=0 width=600>
+<tr bgcolor="#F8F8F8"><td valign=top><font face="Verdana,Arial,Helvetica" size=2><b>Port</b></font></td>
+<td><font face="Verdana,Arial,Helvetica" size=2>Der TCP-Port kann einen Zahl von 1 bis 65535 annehmen.
+Standard f&uuml;r HTTP ist Port 80 (default).</font></td>
+<td valign=top bgcolor="#FFFFFF"><font face="Verdana,Arial,Helvetica" size=2>1.0</font></td></tr>
+
+<tr><td valign=top><font face="Verdana,Arial,Helvetica" size=2><b>Root</b></font></td>
+<td><font face="Verdana,Arial,Helvetica" size=2>Root ist das Basis-Verzeichnis, das die Homepage enth&auml;lt.
+Standard ist der Unterordner "Webroot" im Programmverzeichnis.</font></td>
+<td valign=top bgcolor="#FFFFFF"><font face="Verdana,Arial,Helvetica" size=2>1.0</font></td></tr>
+
+<tr bgcolor="#F8F8F8"><td valign=top><font face="Verdana,Arial,Helvetica" size=2><b>Listing</b>&nbsp;</font></td>
+<td><font face="Verdana,Arial,Helvetica" size=2>Listing kann 0 oder 1 sein und zeigt an, wie Verzeichnisse
+behandelt werden, die keine <span style="background-color:#ffffa0">index.html</span> enthalten. Ist Listing gleich 0 so liefert der Webserver
+die Meldung "Forbidden" zur&uuml;ck, andernfalls liefert er eine Verzeichnis-Liste mit den enthaltenen Dateien (Standard). <sup>*</sup></font></td>
+<td valign=top bgcolor="#FFFFFF"><font face="Verdana,Arial,Helvetica" size=2>1.0</font></td></tr>
+
+<tr><td valign=top><font face="Verdana,Arial,Helvetica" size=2><b>MIME</b></font></td>
+<td><font face="Verdana,Arial,Helvetica" size=2>Das Programm enth&auml;lt bereits die g&auml;ngigsten <a href="mime.html" target="_top">MIME-Typen</a>, die anhand
+der Dateiendungen zugeordnet werden. Wer Dateien mit seltenen Datenformaten anbietet, kann mit MIME eine
+Liste zus&auml;tzlicher Typen angeben.<br>
+Beispiel: <span style="background-color:#a0ffc0">&nbsp;MIME=mov=video/quicktime;snd=audio/basic&nbsp;</span></font></td>
+<td valign=top bgcolor="#FFFFFF"><font face="Verdana,Arial,Helvetica" size=2>1.0</font></td></tr>
+
+<tr bgcolor="#F8F8F8"><td valign=top><font face="Verdana,Arial,Helvetica" size=2><b>cfg</b></font></td>
+<td><font face="Verdana,Arial,Helvetica" size=2>Dieser Parameter ist speziell f&uuml;r die Kommandozeile gedacht
+und legt fest, welche Konfigurationsdatei geladen werden soll. Standard ist die gleichnamige .ini-Datei. <sup>**</sup><br>
+Beispiel 1: <span style="background-color:#a0ffc0">&nbsp;cfg=Konfig2.ini&nbsp;</span> &nbsp; (Datei liegt im Programmverzeichnis)<br>
+Beispiel 2: <span style="background-color:#a0ffc0">&nbsp;"cfg=C:\Eigene Dateien\Port81.ini"&nbsp;</span> &nbsp; (Anf&uuml;hrungszeichen wegen des Leerzeichens im Pfad)</font></td>
+<td valign=top bgcolor="#FFFFFF"><font face="Verdana,Arial,Helvetica" size=2>1.0</font></td></tr>
+
+<tr><td valign=top><font face="Verdana,Arial,Helvetica" size=2><b>Index</b></font></td>
+<td><font face="Verdana,Arial,Helvetica" size=2>Name der Index-Datei z.B. index.html oder index.htm
+oder default.htm. Vorgabe ist index.html.</font></td>
+<td valign=top bgcolor="#FFFFFF"><font face="Verdana,Arial,Helvetica" size=2>1.1</font></td></tr>
+
+<tr bgcolor="#F8F8F8"><td valign=top><font face="Verdana,Arial,Helvetica" size=2><b>AuthDir<br>AuthUser</b></font></td>
+<td><font face="Verdana,Arial,Helvetica" size=2>Der Parameter AuthDir definiert eine Liste von gesch&uuml;tzten
+Verzeichnissen, der Parameter AuthUser eine Liste von Benutzern und deren Passw&ouml;rter. Wenn Sie diese Parameter
+wirklich von Hand setzen wollen, so schauen Sie sich bitte vorher die integrierte Benutzerverwaltung an und
+erkunden wie dort diese Parameter belegt werden. Wichtig ist, dass in Benutzernamen und Pasworten die
+Zeichen ":" (Doppelpunkt) und "|" (Hochstrich) nicht verwendet werden d&uuml;rfen.</font></td>
+<td valign=top bgcolor="#FFFFFF"><font face="Verdana,Arial,Helvetica" size=2>1.1</font></td></tr>
+
+<tr><td valign=top><font face="Verdana,Arial,Helvetica" size=2><b>ListingTitle</b></font></td>
+<td><font face="Verdana,Arial,Helvetica" size=2>f&uuml;r Directory Listing: bestimmt den Wortlaut der &Uuml;berschrift</font></td>
+<td valign=top bgcolor="#FFFFFF"><font face="Verdana,Arial,Helvetica" size=2>1.1</font></td></tr>
+
+<tr><td valign=top><font face="Verdana,Arial,Helvetica" size=2><b>ListingInfo</b></font></td>
+<td><font face="Verdana,Arial,Helvetica" size=2>bestimmt einen beliebigen,
+zus&auml;tzlichen Text im Kopf des Listings (unter der &Uuml;berschrift)</font></td>
+<td bgcolor="#FFFFFF">&nbsp;</td></tr>
+
+<tr><td valign=top><font face="Verdana,Arial,Helvetica" size=2><b>ListingBg</b></font></td>
+<td><font face="Verdana,Arial,Helvetica" size=2>legt den Dateinamen einer
+Hintergrund-Grafik (Kachel) fest. Die Datei mu&szlig; im Root-Ordner liegen und der Dateiname mu&szlig; alle Unterpfade
+enthalten, inkl. eines f&uuml;hrenden Slash,
+<br>z.B. /graphics/misc/background.gif</font></td>
+<td bgcolor="#FFFFFF">&nbsp;</td></tr>
+
+<tr bgcolor="#F8F8F8"><td valign=top><font face="Verdana,Arial,Helvetica" size=2><b>Startup</b></font></td>
+<td><font face="Verdana,Arial,Helvetica" size=2>Enth&auml;lt Optionen zur Durchf&uuml;hrung nach erfolgreichem Serverstart.
+Zur Zeit gibt es nur die Eigenschaft <b>Linklist</b> zum automatischen Eintragen in die Linkliste
+<a href="http://www.aidex.de/links/" target="_blank">www.aidex.de/links</a></font></td>
+<td valign=top bgcolor="#FFFFFF"><font face="Verdana,Arial,Helvetica" size=2>1.1</font></td></tr>
+
+<tr><td valign=top><font face="Verdana,Arial,Helvetica" size=2><b>GUI</b></font></td>
+<td><font face="Verdana,Arial,Helvetica" size=2>Enth&auml;lt Eigenschaften f&uuml;r das Programmfenster
+[GUI=Graphical&nbsp;User&nbsp;Interface].<br>
+- <b>HeaderViewOff</b>: Ansicht der HTTP-Header abschalten<br>
+- <b>DoNotLogSmallImages</b>: Der Log-Screen listet keine Anfragen zu kleinen Grafikdateien (kann un&uuml;bersichtlich sein)<br>
+- <b>Minimize</b>: Fenster automatisch zum Tray-Icon verkleinern</font></td>
+<td valign=top bgcolor="#FFFFFF"><font face="Verdana,Arial,Helvetica" size=2>1.1</font></td></tr>
+
+</table><br>
+
+<table cellpadding=0 cellspacing=0 border=0 width=600><tr>
+<td><font face="Verdana,Arial,Helvetica" size=2>
+<p><sup>*</sup> gewollte Eigenschaften von Verzeichnis-Listen (siehe Parameter Listing)<br>
+- Verzeichnis-Listen zeigen keine versteckten Dateien<br>
+- Verzeichnis-Listen werden nach 1.000 Eintr&auml;gen abgeschnitten</p>
+
+<p><sup>**</sup> Wer Konfigurationsdateien verwenden m&ouml;chte, ohne den cfg-Parameter zu setzen, der
+mu&szlig; die INI-Files entsprechend der EXE-Dateien benennen:<br>
+- MiniWebserver.ini  f&uuml;r MiniWebserver.exe<br>
+- MicroWebserver.ini f&uuml;r MicroWebserver.exe</p>
+
+<p><br><b>Beispiel f&uuml;r einen Kommandozeilen-Aufruf:</b><br>
+<span style="background-color:#a0ffc0">&nbsp;MicroWebserver.exe &nbsp; Port=90 &nbsp; "Root=C:\Meine Homepage\"&nbsp;</span></p>
+
+<p><br><b>Beispiel f&uuml;r eine .ini-Datei:</b><br>
+<table cellpadding=6 cellspacing=0 border=0><tr>
+<td bgcolor="#a0ffc0"><font face="Verdana,Arial,Helvetica" size=2>Port=80<br>
+Root=C:\Meine Homepage\<br>Listing=1<br>MIME=mov=video/quicktime;snd=audio/basic</font></td>
+<td valign=top><font face="Verdana,Arial,Helvetica" size=2>&nbsp;<br>
+(hier ohne Anf&uuml;hrungszeichen !)</font></td></tr></table></p>
+
+<p><br><b>Parameter-Syntax</b><br>
+- Bitte schreiben Sie <u>kein</u> Leerzeichen vor oder hinter Gleichheitszeichen. Die Parameter werden sonst nicht akzeptiert.
+Die Schreibweise der Parameter-Namen, ob gro&szlig; oder klein, ist hingegen egal.<br>
+- Ein Kommandozeilen-Parameter <u>mu&szlig;</u> in Anf&uuml;hrungsstrichen geschrieben werden, wenn der Wert ein Leerzeichen enth&auml;lt.
+In der .ini-Datei d&uuml;rfen hingegen keine Anf&uuml;hrungszeichen verwendet werden.</p>
+
+<hr><p><a href="index.html" target="_top">Webserver Guide</a> ·
+<a href="../" target="_top">Webserver Download</a> ·
+<a href="http://www.aidex.de/freeware/" target="_top">www.aidex.de/freeware</a></p>
+</font></td></tr></table></div><br>
+</body></html>
