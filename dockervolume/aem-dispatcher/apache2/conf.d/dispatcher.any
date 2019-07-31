@@ -1,3 +1,5 @@
+#To find the We.Retail Specific changes, search for "We.Retail Alert"
+
 # Each farm configures a set of load balanced renders (i.e. remote servers)
 /farms
   {
@@ -92,8 +94,12 @@
 #     /0026 { /type "allow" /url "/home/*"   }
 #     /0027 { /type "allow" /url "/tmp/*"    }
 #     /0028 { /type "allow" /url "/var/*"    }
+  
+  # We.Retail Alert: Allows We.Retail clientlibs to pass through
+  /0029 { /type "allow" /url "/etc.clientlibs/*" }
 
       # Enable extensions in non-public content directories, using a regular expression
+    # We.Retail Alert: Allows woff2|woff|tff to be requested for We.Retail
       /0041
         {
         /type "allow"
@@ -137,11 +143,12 @@
       # document root of the webserver. When an activation request for some 
       # page is received, only files within the same subtree are affected 
       # by the invalidation.
-      #/statfileslevel "0"
+      #/statfileslevel "3"
       
       # Flag indicating whether to cache responses to requests that contain
       # authorization information.
-      #/allowAuthorized "0"
+      # We.Retail Alert
+      /allowAuthorized "1"
       
       # Flag indicating whether the dispatcher should serve stale content if
       # no remote server is available.
