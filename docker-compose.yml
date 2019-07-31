@@ -107,6 +107,9 @@ services:
           context: ./Dispatcher
           dockerfile: Dockerfile
         image: docker-tam-dev.dr.corp.adobe.com/apache-dispatcher:2.4-4.3.2
+        environment:
+            - DISPATCHER_FILENAME_TAR_GZ=dispatcher-apache2.4-linux-x86_64-4.3.2.tar.gz
+            - ARG DISPATCHER_FILENAME_SO=dispatcher-apache2.4-4.3.2.so
         container_name: dispatcher
         #network_mode: bridge
         networks:
