@@ -7,8 +7,8 @@ RUN	apt-get update && \
 	apt-get install -y \
 		wget \
 		apache2 \
-		apache2-doc && \
-		apache2-dbg libapr1-dbg libaprutil1-dbg gdb
+		apache2-doc \
+		apache2-dbg libapr1-dbg libaprutil1-dbg gdb && \
 	a2enmod \
 		headers \
 		alias \
