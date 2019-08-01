@@ -38,11 +38,19 @@ COPY	dispatcher.any /etc/apache2/conf.d/dispatcher.any
 ARG DISPATCHER_FILENAME_TAR_GZ
 ARG DISPATCHER_FILENAME_SO
 
+ENV DISPATCHER_FILENAME_TAR_GZ=$DISPATCHER_FILENAME_TAR_GZ
+ENV DISPATCHER_FILENAME_SO=$DISPATCHER_FILENAME_SO
+
 #COPY	${DISPATCHER_FILENAME_SO} /usr/lib/apache2/modules/${DISPATCHER_FILENAME_SO}
 
 ADD http://download.macromedia.com/dispatcher/download/${DISPATCHER_FILENAME_TAR_GZ} /tmp/dispatcher/
-RUN tar -xzvf /tmp/dispatcher/${DISPATCHER_FILENAME_TAR_GZ} && \
-	mv /tmp/dispatcher/${DISPATCHER_FILENAME_SO} /usr/lib/apache2/modules/
+RUN cd /tmp/dispatcher && \
+    tar -xzvf ${DISPATCHER_FILENAME_TAR_GZ} && \
+	mv /tmp/dispatcher/${DISPATCHER_FILENAME_SO} /usr/lib/apache2/modules/ && \
+	rm -rf /tmp/dispatcher && \
+	chown root:root /usr/lib/apache2/modules/${DISPATCHER_FILENAME_SO} && \
+	chmod 644 /usr/lib/apache2/modules/${DISPATCHER_FILENAME_SO}
+
 
 ENV APACHE_DOCUMENTROOT /var/www
 ENV APACHE_RUN_USER www-data
