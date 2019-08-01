@@ -7,8 +7,8 @@ RUN	apt-get update && \
 	apt-get install -y \
 		wget \
 		apache2 \
-		apache2-doc && \
-		apache2-dbg libapr1-dbg libaprutil1-dbg gdb
+		apache2-doc \
+		apache2-dbg libapr1-dbg libaprutil1-dbg gdb && \
 	a2enmod \
 		headers \
 		alias \
@@ -38,7 +38,7 @@ COPY	dispatcher.any /etc/apache2/conf.d/dispatcher.any
 ARG DISPATCHER_FILENAME_TAR_GZ
 ARG DISPATCHER_FILENAME_SO
 
-#COPY	dispatcher-apache2.4-4.3.2.so /usr/lib/apache2/modules/dispatcher-apache2.4-4.3.2.so
+#COPY	${DISPATCHER_FILENAME_SO} /usr/lib/apache2/modules/${DISPATCHER_FILENAME_SO}
 
 ADD http://download.macromedia.com/dispatcher/download/${DISPATCHER_FILENAME_TAR_GZ} /tmp/dispatcher/
 RUN tar -xzvf /tmp/dispatcher/${DISPATCHER_FILENAME_TAR_GZ} && \
