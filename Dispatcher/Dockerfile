@@ -29,12 +29,20 @@ RUN	apt-get update && \
 #COPY	pagespeed.conf /etc/apache2/mods-available/pagespeed.conf
 	
 COPY	ports.conf /etc/apache2/ports.conf
-
 COPY	80-dispatcher.conf /etc/apache2/sites-enabled/80-dispatcher.conf
-
-COPY	dispatcher-apache2.4-4.3.2.so /usr/lib/apache2/modules/dispatcher-apache2.4-4.3.2.so
 COPY	dispatcher.conf /etc/apache2/conf-enabled/dispatcher.conf
 COPY	dispatcher.any /etc/apache2/conf.d/dispatcher.any
+
+## ADDING Dispatcher file to image
+
+ARG DISPATCHER_FILENAME_TAR_GZ
+ARG DISPATCHER_FILENAME_SO
+
+#COPY	${DISPATCHER_FILENAME_SO} /usr/lib/apache2/modules/${DISPATCHER_FILENAME_SO}
+
+ADD http://download.macromedia.com/dispatcher/download/${DISPATCHER_FILENAME_TAR_GZ} /tmp/dispatcher/
+RUN tar -xzvf /tmp/dispatcher/${DISPATCHER_FILENAME_TAR_GZ} && \
+	mv /tmp/dispatcher/${DISPATCHER_FILENAME_SO} /usr/lib/apache2/modules/
 
 ENV APACHE_DOCUMENTROOT /var/www
 ENV APACHE_RUN_USER www-data
