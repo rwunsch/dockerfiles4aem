@@ -130,8 +130,14 @@ services:
         #        syslog-address: "tcp://192.168.99.1:514"
         volumes:
             # Specify an absolute path mapping
+            #- "./dockervolume/aem-dispatcher/apache2/mods-enabled:/etc/apache2/mods-enabled"
             - "./dockervolume/aem-dispatcher/apache2/sites-enabled:/etc/apache2/sites-enabled"
             - "./dockervolume/aem-dispatcher/apache2/conf-enabled:/etc/apache2/conf-enabled"
             - "./dockervolume/aem-dispatcher/apache2/conf.d:/etc/apache2/conf.d"
             - "./dockervolume/aem-dispatcher/var/www/html:/var/www/html"
             - "./dockervolume/aem-dispatcher/var/log/apache2:/var/log/apache2"
+        ulimits:
+            #nproc: 65535
+            nofile:
+                soft: "1024" #"65536"
+                hard: "1024" #"65536"
