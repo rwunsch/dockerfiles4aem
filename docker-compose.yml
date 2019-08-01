@@ -106,10 +106,13 @@ services:
         build:
           context: ./Dispatcher
           dockerfile: Dockerfile
+          args:
+              - DISPATCHER_FILENAME_TAR_GZ=dispatcher-apache2.4-linux-x86_64-4.3.2.tar.gz
+              - DISPATCHER_FILENAME_SO=dispatcher-apache2.4-4.3.2.so
         image: docker-tam-dev.dr.corp.adobe.com/apache-dispatcher:2.4-4.3.2
         environment:
-            - DISPATCHER_FILENAME_TAR_GZ=dispatcher-apache2.4-linux-x86_64-4.3.2.tar.gz
-            - ARG DISPATCHER_FILENAME_SO=dispatcher-apache2.4-4.3.2.so
+            - DISPATCHER_PUBLISH_PORT=4503
+            - DISPATCHER_PUBLISH_HOSTNAME=publish
         container_name: dispatcher
         #network_mode: bridge
         networks:
@@ -132,6 +135,3 @@ services:
             - "./dockervolume/aem-dispatcher/apache2/conf.d:/etc/apache2/conf.d"
             - "./dockervolume/aem-dispatcher/var/www/html:/var/www/html"
             - "./dockervolume/aem-dispatcher/var/log/apache2:/var/log/apache2"
-        environment:
-            - DISPATCHER_PUBLISH_PORT=4503
-            - DISPATCHER_PUBLISH_HOSTNAME=publish
