@@ -137,8 +137,15 @@ services:
             - "./dockervolume/aem-dispatcher/apache2:/etc/apache2"
             - "./dockervolume/aem-dispatcher/var/www:/var/www"
             - "./dockervolume/aem-dispatcher/var/log:/var/log"
+            - "./dockervolume/aem-dispatcher/var/coredumpsync:/var/coredumpsync"
+        privileged: true
+        security_opt:
+            - seccomp:unconfined
         ulimits:
             #nproc: 65535
+            core:  
+                soft: -1
+                hard: -1
             nofile:
                 soft: "131072"
                 hard: "131072"
