@@ -131,13 +131,14 @@ services:
         volumes:
             # Specify an absolute path mapping
             #- "./dockervolume/aem-dispatcher/apache2/mods-enabled:/etc/apache2/mods-enabled"
-            - "./dockervolume/aem-dispatcher/apache2/sites-enabled:/etc/apache2/sites-enabled"
-            - "./dockervolume/aem-dispatcher/apache2/conf-enabled:/etc/apache2/conf-enabled"
-            - "./dockervolume/aem-dispatcher/apache2/conf.d:/etc/apache2/conf.d"
-            - "./dockervolume/aem-dispatcher/var/www/html:/var/www/html"
-            - "./dockervolume/aem-dispatcher/var/log/apache2:/var/log/apache2"
+            #- "./dockervolume/aem-dispatcher/apache2/sites-enabled:/etc/apache2/sites-enabled"
+            #- "./dockervolume/aem-dispatcher/apache2/conf-enabled:/etc/apache2/conf-enabled"
+            #- "./dockervolume/aem-dispatcher/apache2/conf.d:/etc/apache2/conf.d"
+            - "./dockervolume/aem-dispatcher/apache2:/etc/apache2"
+            - "./dockervolume/aem-dispatcher/var/www:/var/www"
+            - "./dockervolume/aem-dispatcher/var/log:/var/log"
         ulimits:
             #nproc: 65535
             nofile:
-                soft: "1024" #"65536"
-                hard: "1024" #"65536"
+                soft: "131072"
+                hard: "131072"
