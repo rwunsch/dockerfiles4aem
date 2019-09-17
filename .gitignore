@@ -17,11 +17,15 @@ dispatcher-apache*
 /dockervolume/aem-publish/
 /dockervolume/aem-dispatcher/var/
 
-
 ## Ignore everything in install
 /AEM/install/*
 ## exception to the rule
 !/AEM/install/.gitkeep 
+
+## Ignore everything in sites-enabled
+/dockervolume/aem-dispatcher/apache2/sites-enabled/*
+## exception to the rule - default vhosts
+!/dockervolume/aem-dispatcher/apache2/sites-enabled/80.dispatcher.conf
 
 ## Windows image file caches
 Thumbs.db
