@@ -11,6 +11,8 @@ ENV DEBUG_PORT=40404
 RUN echo sling.run.modes=${CQ_RUNMODE} >> crx-quickstart/conf/sling.properties && \
     crx-quickstart/bin/start && \
     until $(curl -u admin:admin --output /dev/null --silent --head --fail http://localhost:${CQ_PORT}); do printf '.'; sleep 5; done && \
+	curl -u admin:admin -FtransportUri="http://dispatcher:80/dispatcher/invalidate.cache"  http://localhost:4503/etc/replication/agents.publish/flush/jcr:content && \
+	curl -u admin:admin -Fenabled="true"  http://localhost:4503/etc/replication/agents.publish/flush/jcr:content && \
 	## DO INITIAL SET-UP CURL STUFF HERE
     crx-quickstart/bin/stop
 
