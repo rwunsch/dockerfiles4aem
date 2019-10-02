@@ -37,7 +37,7 @@ ARG ARTIFACTORY_USER_COLON_API_TOKEN
 
 ARG AEM_VERSION=6.4.0
 ARG AEM_QUICKSTART_FILE=cq-quickstart-${AEM_VERSION}.jar
-ARG AEM_USER=aem
+#ARG AEM_USER=aem
 ARG AEM_WORKING_DIR=/opt/aem
 
 ENV AEM_QUICKSTART_FILE=$AEM_QUICKSTART_FILE
@@ -49,9 +49,9 @@ COPY ./${AEM_QUICKSTART_FILE} ${AEM_WORKING_DIR}/${AEM_QUICKSTART_FILE}
 COPY ./license.properties ${AEM_WORKING_DIR}/license.properties
 
 ## Create user and unpack AEM quick-start
-RUN groupadd -r ${AEM_USER} && useradd -r -g ${AEM_USER} ${AEM_USER} -d ${AEM_WORKING_DIR} && \
-    java -Djava.awt.headless=true -Xms2g -Xmx2g -jar ${AEM_WORKING_DIR}/${AEM_QUICKSTART_FILE} -unpack   && \
-    chown -R ${AEM_USER}:${AEM_USER} ${AEM_WORKING_DIR} 
+#RUN groupadd -r ${AEM_USER} && useradd -r -g ${AEM_USER} ${AEM_USER} -d ${AEM_WORKING_DIR} && \
+#    java -Djava.awt.headless=true -Xms2g -Xmx2g -jar ${AEM_WORKING_DIR}/${AEM_QUICKSTART_FILE} -unpack   && \
+#    chown -R ${AEM_USER}:${AEM_USER} ${AEM_WORKING_DIR} 
 #	&& \
 #	echo "user ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/user && \
 #    chmod 0440 /etc/sudoers.d/user
@@ -73,7 +73,7 @@ ADD install ${AEM_WORKING_DIR}/crx-quickstart/install/
 #ADD https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/cumulativefixpack/cq-6.1.0-sp2-cfp/3.0/cq-6.1.0-sp2-cfp-3.0.zip ${AEM_WORKING_DIR}/install-base/
 #ADD https://artifactory.corp.adobe.com/artifactory/maven-aem-release-local/com/adobe/cq/cumulativefixpack/cq-6.1.0-sp2-cfp/11.2/cq-6.1.0-sp2-cfp-11.2.zip ${AEM_WORKING_DIR}/install-base/
 	
-RUN chown -R ${AEM_USER}:${AEM_USER} ${AEM_WORKING_DIR}	
+#RUN chown -R ${AEM_USER}:${AEM_USER} ${AEM_WORKING_DIR}	
 	
-USER ${AEM_USER}
+#USER ${AEM_USER}
 WORKDIR ${AEM_WORKING_DIR}
