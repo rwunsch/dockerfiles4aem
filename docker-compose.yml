@@ -147,5 +147,5 @@ services:
                 soft: -1
                 hard: -1
             nofile:
-                soft: "131072"
-                hard: "131072"
+                soft: 131072
+                hard: 131072
