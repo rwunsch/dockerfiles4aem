@@ -55,6 +55,7 @@ COPY ./license.properties ${AEM_WORKING_DIR}/license.properties
 #	&& \
 #	echo "user ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/user && \
 #    chmod 0440 /etc/sudoers.d/user
+RUN java -Djava.awt.headless=true -Xms2g -Xmx2g -jar ${AEM_WORKING_DIR}/${AEM_QUICKSTART_FILE} -unpack
 
 ## Add install folder 
 ADD install ${AEM_WORKING_DIR}/crx-quickstart/install/
