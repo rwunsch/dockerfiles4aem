@@ -107,9 +107,9 @@ services:
           context: ./Dispatcher
           dockerfile: Dockerfile
           args:
-              - DISPATCHER_FILENAME_TAR_GZ=dispatcher-apache2.4-linux-x86_64-4.3.2.tar.gz
-              - DISPATCHER_FILENAME_SO=dispatcher-apache2.4-4.3.2.so
-        image: docker-tam-dev.dr.corp.adobe.com/apache-dispatcher:2.4-4.3.2
+              - DISPATCHER_FILENAME_TAR_GZ=dispatcher-apache2.4-linux-x86_64-4.3.3.tar.gz
+              - DISPATCHER_FILENAME_SO=dispatcher-apache2.4-4.3.3.so
+        image: docker-tam-dev.dr.corp.adobe.com/apache-dispatcher:2.4-4.3.3
         environment:
             - DISPATCHER_PUBLISH_PORT=4503
             - DISPATCHER_PUBLISH_HOSTNAME=publish
