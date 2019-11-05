@@ -19,9 +19,9 @@ services:
             - JAVA_VERSION=8
             - JAVA_FILENAME=jdk-8u181-linux-x64.tar.gz
             - JAVA_JDK_FOLDERNAME=jdk1.8.0_181
-        image: docker-tam-dev.dr.corp.adobe.com/aem-base:AEM6.4.0
+        image: docker-tam-dev.dr.corp.adobe.com/aem-base:AEM6.5.0
         environment:
-            - AEM_VERSION=6.4.0
+            - AEM_VERSION=6.5.0
         container_name: base
         #network_mode: bridge
         networks:
@@ -32,7 +32,7 @@ services:
         build:
           context: ./AEM
           dockerfile: Dockerfile-AEM-publish
-        image: docker-tam-dev.dr.corp.adobe.com/aem-publish:AEM6.4.0
+        image: docker-tam-dev.dr.corp.adobe.com/aem-publish:AEM6.5.0
         environment:
             - CQ_RUNMODE=publish
             - CQ_PORT=4503
@@ -68,7 +68,7 @@ services:
         build:
           context: ./AEM
           dockerfile: Dockerfile-AEM-author
-        image: docker-tam-dev.dr.corp.adobe.com/aem-author:AEM6.4.0
+        image: docker-tam-dev.dr.corp.adobe.com/aem-author:AEM6.5.0
         environment:
             - CQ_RUNMODE=author
             - CQ_PORT=4502
