@@ -11,14 +11,14 @@ ARG JAVA_JDK_FOLDERNAME
 ENV JAVA_HOME /usr/lib/jvm/java-${JAVA_VERSION}-oracle
 ENV DEBIAN_FRONTEND noninteractive
 
-# Install updates and Java, ffMPEG, ImageMagick,Ghostscript and OpenSSL
+## Install updates and Java, ffMPEG, ImageMagick,Ghostscript and OpenSSL
 RUN apt-get update && \
     apt-get -y upgrade && \
     apt-get install -y curl unzip software-properties-common imagemagick ffmpeg ghostscript openssl \
     apt-get clean && \
     apt-get purge && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /var/lib/apt/lists/*  
 
     
 ## Install Oracle JDK
