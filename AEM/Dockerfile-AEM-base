@@ -1,6 +1,6 @@
 ## Dockerized AEM base image
 #FROM ubuntu:18.04
-FROM phusion/baseimage:0.11
+FROM phusion/baseimage:master
 
 MAINTAINER Robert Wunsch <wunsch@adobe.com>
 
@@ -14,7 +14,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ## Install updates and Java, ffMPEG, ImageMagick,Ghostscript and OpenSSL
 RUN apt-get update && \
     apt-get -y upgrade && \
-    apt-get install -y curl unzip software-properties-common imagemagick ffmpeg ghostscript openssl \
+    apt-get install -y curl unzip software-properties-common imagemagick ffmpeg ghostscript openssl && \
     apt-get clean && \
     apt-get purge && \
     apt-get clean && \

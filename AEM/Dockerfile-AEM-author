@@ -47,7 +47,5 @@ CMD java \
 	-XX:MaxPermSize=256M -Xms${HEAP_SIZE} -Xmx${HEAP_SIZE} \
 	-XX:+PrintGC \
 	-XX:+HeapDumpOnOutOfMemoryError \
-#	-debug ${DEBUG_PORT} \
-#   -Xdebug \
-#   -Xrunjdwp:transport=dt_socket,address=${DEBUG_PORT},server=y,suspend=n \
+	-agentlib:jdwp=transport=dt_socket,address=${DEBUG_PORT},server=y,suspend=n \
 	-jar ${AEM_QUICKSTART_FILE} -p ${CQ_PORT} -r ${CQ_RUNMODE} -nobrowser -verbose -nofork
