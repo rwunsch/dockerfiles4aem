@@ -38,6 +38,7 @@ services:
             - CQ_RUNMODE=publish
             - CQ_PORT=4503
             - DEBUG_PORT=40404
+            - JMX_HOST=${JMX_HOST}
             - JMX_PORT=4603 
             - HEAP_SIZE=2048m
         container_name: publish
@@ -75,6 +76,7 @@ services:
             - CQ_PORT=4502
             - DEBUG_PORT=30303
             - PUBLISH_HOST=publish
+            - JMX_HOST=${JMX_HOST}
             - JMX_PORT=4602
             - HEAP_SIZE=2048m
         container_name: author
