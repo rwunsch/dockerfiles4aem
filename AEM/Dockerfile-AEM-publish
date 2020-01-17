@@ -1,11 +1,12 @@
 ## Dockerized AEM publisher image
-
-FROM docker-tam-dev.dr.corp.adobe.com/aem-base:AEM6.4.0
+ARG AEM_VERSION
+FROM docker-tam-dev.dr.corp.adobe.com/aem-base:AEM${AEM_VERSION}
 
 MAINTAINER Robert Wunsch <wunsch@adobe.com>
 
 ENV CQ_RUNMODE=publish
 ENV CQ_PORT=4503
+ENV DEBUG_HOST=127.0.0.1
 ENV DEBUG_PORT=40404
 
 RUN echo sling.run.modes=${CQ_RUNMODE} >> crx-quickstart/conf/sling.properties && \
@@ -37,7 +38,8 @@ CMD java \
 	-Dcom.sun.management.jmxremote.ssl=false \
 	-Dcom.sun.management.jmxremote.authenticate=false \
 	-Dcom.sun.management.jmxremote.local.only=false \
-	-Djava.rmi.server.hostname=${JMX_HOST_OR_IP} \
+	-Dcom.sun.management.jmxremote.host=0.0.0.0 \
+	-Djava.rmi.server.hostname=0.0.0.0 \
     -Djava.awt.headless=true \
 	-XX:MaxPermSize=256M -Xms${HEAP_SIZE} -Xmx${HEAP_SIZE} \
 	-XX:+PrintGC \

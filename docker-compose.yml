@@ -19,9 +19,8 @@ services:
             - JAVA_VERSION=8
             - JAVA_FILENAME=jdk-8u181-linux-x64.tar.gz
             - JAVA_JDK_FOLDERNAME=jdk1.8.0_181
-        image: docker-tam-dev.dr.corp.adobe.com/aem-base:AEM6.5.0
-        environment:
-            - AEM_VERSION=6.5.0
+            - AEM_QUICKSTART_VERSION=6.5.0
+        image: docker-tam-dev.dr.corp.adobe.com/aem-base:AEM6.5.0.0
         container_name: base
         #network_mode: bridge
         networks:
@@ -32,14 +31,14 @@ services:
         build:
           context: ./AEM
           dockerfile: Dockerfile-AEM-publish
-        image: docker-tam-dev.dr.corp.adobe.com/aem-publish:AEM6.5.0
+          args:
+            - AEM_VERSION=6.5.0.0
+        image: docker-tam-dev.dr.corp.adobe.com/aem-publish:AEM6.5.0.0
         environment:
             - CQ_RUNMODE=publish
             - CQ_PORT=4503
             - DEBUG_PORT=40404
-            - JMX_PORT=4603
-            ## Change the JMX_HOST_OR_IP to the DockerHost-hostname (FQDN) or it's IP, depending on how you access the instance through RMI
-            - JMX_HOST_OR_IP=localhost  
+            - JMX_PORT=4603 
             - HEAP_SIZE=2048m
         container_name: publish
         #network_mode: bridge
@@ -68,15 +67,15 @@ services:
         build:
           context: ./AEM
           dockerfile: Dockerfile-AEM-author
-        image: docker-tam-dev.dr.corp.adobe.com/aem-author:AEM6.5.0
+          args:
+            - AEM_VERSION=6.5.0.0
+        image: docker-tam-dev.dr.corp.adobe.com/aem-author:AEM6.5.0.0
         environment:
             - CQ_RUNMODE=author
             - CQ_PORT=4502
             - DEBUG_PORT=30303
             - PUBLISH_HOST=publish
             - JMX_PORT=4602
-            ## Change the JMX_HOST_OR_IP to the DockerHost-hostname (FQDN) or it's IP, depending on how you access the instance through RMI
-            - JMX_HOST_OR_IP=localhost
             - HEAP_SIZE=2048m
         container_name: author
         #network_mode: bridge
