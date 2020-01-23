@@ -4,24 +4,29 @@ FROM docker-tam-dev.dr.corp.adobe.com/aem-base:AEM${AEM_VERSION}
 
 MAINTAINER Robert Wunsch <wunsch@adobe.com>
 
-ENV CQ_RUNMODE=author
-ENV CQ_PORT=4502
-ENV DEBUG_HOST=127.0.0.1
-ENV DEBUG_PORT=30303
-ENV PUBLISH_HOST=publish
+ARG CQ_RUNMODE=author
+ARG CQ_PORT=4502
+ARG CQ_PORT_PUBLISH=4503
+ARG PUBLISH_HOST=publish
 
+ENV CQ_RUNMODE=$CQ_RUNMODE
+ENV CQ_PORT=$CQ_PORT
+ENV CQ_PORT_PUBLISH=$CQ_PORT_PUBLISH
+ENV PUBLISH_HOST=$PUBLISH_HOST
 
 RUN echo sling.run.modes=${CQ_RUNMODE} >> crx-quickstart/conf/sling.properties && \
     crx-quickstart/bin/start && \
     until $(curl -u admin:admin --output /dev/null --silent --head --fail http://localhost:${CQ_PORT}); do printf '.'; sleep 5; done && \
-    curl -uadmin:admin -FtransportUri="http://publish:4503/bin/receive?sling:authRequestLogin=1" http://localhost:4502/etc/replication/agents.author/publish/jcr:content  && \
+    curl -uadmin:admin -FtransportUri="http://publish:${CQ_PORT_PUBLISH}/bin/receive?sling:authRequestLogin=1" http://localhost:${CQ_PORT}/etc/replication/agents.author/publish/jcr:content  && \
 	## DO INITIAL SET-UP CURL STUFF HERE
     crx-quickstart/bin/stop
 	
 # RUN wget https://github.com/Adobe-Consulting-Services/acs-aem-commons/releases/download/acs-aem-commons-3.19.0/acs-aem-commons-content-3.19.0.zip -P ${AEM_WORKING_DIR}/install
 
+ENV DEBUG_HOST=127.0.0.1
+ENV DEBUG_PORT=30303
 ENV JMX_PORT=4602	
-ENV JMX_HOST=0.0.0.0
+ENV JMX_IP=0.0.0.0
 ENV HEAP_SIZE=2048m
 	
 EXPOSE ${CQ_PORT}
@@ -41,8 +46,7 @@ CMD java \
 	-Dcom.sun.management.jmxremote.ssl=false \
 	-Dcom.sun.management.jmxremote.authenticate=false \
 	-Dcom.sun.management.jmxremote.local.only=false \
-	-Dcom.sun.management.jmxremote.host=${JMX_HOST} \
-	-Djava.rmi.server.hostname=${JMX_HOST} \
+	-Djava.rmi.server.hostname=${JMX_IP} \
     -Djava.awt.headless=true \
 	-XX:MaxPermSize=256M -Xms${HEAP_SIZE} -Xmx${HEAP_SIZE} \
 	-XX:+PrintGC \

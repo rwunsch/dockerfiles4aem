@@ -33,12 +33,12 @@ services:
           dockerfile: Dockerfile-AEM-publish
           args:
             - AEM_VERSION=6.5.0.0
-        image: docker-tam-dev.dr.corp.adobe.com/aem-publish:AEM6.5.0.0
-        environment:
             - CQ_RUNMODE=publish
             - CQ_PORT=4503
+        image: docker-tam-dev.dr.corp.adobe.com/aem-publish:AEM6.5.0.0
+        environment:
             - DEBUG_PORT=40404
-            - JMX_HOST=${JMX_HOST}
+            - JMX_IP=${JMX_IP}
             - JMX_PORT=4603 
             - HEAP_SIZE=2048m
         container_name: publish
@@ -70,13 +70,15 @@ services:
           dockerfile: Dockerfile-AEM-author
           args:
             - AEM_VERSION=6.5.0.0
-        image: docker-tam-dev.dr.corp.adobe.com/aem-author:AEM6.5.0.0
-        environment:
             - CQ_RUNMODE=author
             - CQ_PORT=4502
+            - CQ_PORT_PUBLISH=4503
+            - PUBLISH_HOST=publish
+        image: docker-tam-dev.dr.corp.adobe.com/aem-author:AEM6.5.0.0
+        environment:
             - DEBUG_PORT=30303
             - PUBLISH_HOST=publish
-            - JMX_HOST=${JMX_HOST}
+            - JMX_IP=${JMX_IP}
             - JMX_PORT=4602
             - HEAP_SIZE=2048m
         container_name: author
