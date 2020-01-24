@@ -12,9 +12,12 @@ ENV JAVA_HOME /usr/lib/jvm/java-${JAVA_VERSION}-oracle
 ENV DEBIAN_FRONTEND noninteractive
 
 ## Install updates and Java, ffMPEG, ImageMagick,Ghostscript and OpenSSL
+## Libraries to install for Forms: expat libxcb freetype libXau libSM zlib libICE libuuid glibc libXext nss-softokn-freebl fontconfig libX11 libXrender libXrandr libXinerama && \ 
+## Forms dependecies from documentation: https://docs.adobe.com/content/help/en/experience-manager-64/forms/install-aem-forms/osgi-installation/install-configure-document-services.html#System%20Requirements
 RUN apt-get update && \
     apt-get -y upgrade && \
     apt-get install -y curl unzip software-properties-common imagemagick ffmpeg ghostscript openssl net-tools && \
+    apt-get install -y libexpat1 libxcb1 freetype2-demos libxau6 libsm6 zlib1g libice6 libuuid1 libc6 libxext6 libnss3 fontconfig libx11-6 libxrender1 libxrandr2 libxinerama1 && \ ## Forms dependecies: https://git-corp/aemforms-on-ethos/forms-docker/blob/master/images/forms/src/main/docker/installDependencies.sh
     apt-get clean && \
     apt-get purge && \
     apt-get clean && \
@@ -31,6 +34,8 @@ RUN mkdir /opt/jdk/ && \
     rm -rf ${JAVA_FILENAME} && \
     update-alternatives --install /usr/bin/java java /opt/jdk/${JAVA_JDK_FOLDERNAME}/bin/java 100 && \
     update-alternatives --install /usr/bin/javac javac /opt/jdk/${JAVA_JDK_FOLDERNAME}/bin/javac 100 
+	
+ENV JAVA_HOME=/opt/jdk/${JAVA_JDK_FOLDERNAME}
 	
 ARG ARTIFACTORY_USER_COLON_API_TOKEN
 
