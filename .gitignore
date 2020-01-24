@@ -22,6 +22,9 @@ dispatcher-apache*
 ## exception to the rule
 !/AEM/install/.gitkeep 
 
+## ignore ".env" - use .env.example as example for .env
+.env
+
 ## Ignore everything in sites-enabled
 /dockervolume/aem-dispatcher/apache2/sites-enabled/*
 ## exception to the rule - default vhosts
